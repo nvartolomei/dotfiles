@@ -22,7 +22,8 @@ if exists("&undodir")
     set undodir=~/.vim/undo
 endif
 " Colors
-let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+let g:solarized_termcolors=16
 colors solarized
 set background=dark
 " Enable line numbers
