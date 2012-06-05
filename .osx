@@ -1,8 +1,8 @@
 # Enable menu bar transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 
-# Show remaining battery time; hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+# I don't really care neither about percentage or time
+defaults write com.apple.menuextra.battery ShowPercent -string "NO"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
 
 # Always show scrollbars
