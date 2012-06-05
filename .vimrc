@@ -22,7 +22,9 @@ if exists("&undodir")
     set undodir=~/.vim/undo
 endif
 " Colors
-colors molokai
+let g:solarized_termcolors=256
+colors solarized
+set background=dark
 " Enable line numbers
 set number
 " Enable syntax highlighting
