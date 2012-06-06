@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 #git pull
 function do_sync() {
-    rsync --exclude ".git/" --exclude "includes/" --exclude ".DS_Store" \
+    rsync --exclude ".git/" --exclude ".DS_Store" \
           --exclude "bootstrap.sh" --exclude "README.md" -av . ~
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
