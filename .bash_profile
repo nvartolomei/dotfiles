@@ -21,6 +21,11 @@ export LANG="en_US"
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
+# Load completion for homebrew if availabe
+file="/usr/local/Library/Contributions/brew_bash_completion.sh"
+[ -r "$file" ] && source "$file"
+unset file
+
 # Load all available completions
 for file in /usr/local/etc/bash_completion.d/*
 do
