@@ -24,7 +24,7 @@ export LANG="en_US"
 # Load all available completions
 for file in /usr/local/etc/bash_completion.d/*
 do
-    source "$file"
+    [ -r "$file" ] && source "$file"
 done
 unset file
 
