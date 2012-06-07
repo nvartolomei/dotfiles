@@ -4,7 +4,9 @@
 
 ### Using Git and the bootstrap script
 
-You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
+You can clone the repository wherever you want. The bootstrapper script will 
+pull in the latest version and copy the files to your home folder. Please note
+that all existing files will be overwritten by `bootstrap.sh` script.
 
 ```bash
 git clone https://github.com/nvartolomei/dotfiles.git && cd dotfiles && ./bootstrap.sh
@@ -32,9 +34,15 @@ cd; curl -#L https://github.com/nvartolomei/dotfiles/tarball/master | tar -xzv -
 
 To update later on, just run that command again.
 
+Looking there for a way to sync silencely around servers. Maybe I will end with
+cron + rsync.
+
 ### Add custom commands without creating a new fork
 
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
+If `~/.extra` exists, it will be sourced along with the other files. 
+You can use this to add a few custom commands without the need to fork this
+entire repository, or to add commands you don’t want to commit to a public
+repository.
 
 My `~/.extra` looks something like this:
 
@@ -62,12 +70,12 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 
 ## Feedback
 
-Suggestions/improvements are
-[welcome to the upstream](https://github.com/mathiasbynens/dotfiles/issues)!
-
 ## Thanks to…
 
 * [Mathias Bynens](http://mathiasbynens.be/) for [original upstream](https://github.com/mathiasbynens/dotfiles)
+
+and all credits given by Mathias
+
 * [Gianni Chiappetta](http://gf3.ca/) for sharing his [amazing collection of dotfiles](https://github.com/gf3/dotfiles)
 * [Matijs Brinkhuis](http://hotfusion.nl/) and his [homedir repository](https://github.com/matijs/homedir)
 * [Jan Moesen](http://jan.moesen.nu/) and his [ancient `.bash_profile`](https://gist.github.com/1156154) + [shiny tilde repository](https://github.com/janmoesen/tilde)
@@ -75,4 +83,6 @@ Suggestions/improvements are
 * [Nicolas Gallagher](http://nicolasgallagher.com/) and his [dotfiles repository](https://github.com/necolas/dotfiles)
 * [Tom Ryder](http://blog.sanctum.geek.nz/) and his [dotfiles repository](https://github.com/tejr/dotfiles)
 * [Tim Esselens](http://devel.datif.be/)
-* anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
+* anyone who [contributed a patch](https://github.com/nvartolomei/dotfiles/graphs/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
+
+and so on recursively ^_^
