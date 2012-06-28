@@ -13,3 +13,4 @@ brew install ssh-copy-id
 brew install gist
 brew install nmap
 brew install resty
+brew install tree
