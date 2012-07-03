@@ -1,7 +1,7 @@
-# Load ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases and ~/.functions
+# Load ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.extra
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
-	[ -r "$file" ] && source "$file"
+for file in ~/.{bash_prompt,exports,aliases,functions,extra}; do
+    [ -r "$file" ] && source "$file"
 done
 unset file
 
@@ -26,16 +26,12 @@ file="/usr/local/Library/Contributions/brew_bash_completion.sh"
 [ -r "$file" ] && source "$file"
 unset file
 
-# Load all available completions
-for file in /usr/local/etc/bash_completion.d/*
-do
-    [ -r "$file" ] && source "$file"
-done
-unset file
-
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Finder Dock Mail Safari iTunes iCal Address\ Book SystemUIServer" killall
+
+# If possible, add tab completion for many more commands
+[ -f /etc/bash_completion ] && source /etc/bash_completion
