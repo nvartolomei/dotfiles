@@ -35,3 +35,10 @@ complete -o "nospace" -W "Finder Dock Mail Safari iTunes iCal Address\ Book Syst
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# Load all available completions   
+for file in /usr/local/etc/bash_completion.d/*      
+do
+    [ -r "$file" ] && source "$file"
+done      
+unset file
