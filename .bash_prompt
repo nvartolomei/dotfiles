@@ -52,7 +52,9 @@ parse_git_branch () {
 # Here we have two different PS1 strings, when I'm on local machine, I don't
 # need to know what user I am or on what computer I'm hacking.
 if [[ ! -n $SSH_TTY ]]; then
-    PS1="\[${BOLD}${WHITE}\] λ \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
+    export PS1="\[${BOLD}${WHITE}\] λ \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
 else
-    PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
+    export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
 fi
+
+export PS2="\[$ORANGE\]→ \[$RESET\]"
