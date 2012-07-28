@@ -57,4 +57,4 @@ else
     export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
 fi
 
-export PS2="\[$ORANGE\]→ \[$RESET\]"
+export PS2="\[$ORANGE\] → \[$RESET\]"
