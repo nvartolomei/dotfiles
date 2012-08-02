@@ -26,3 +26,6 @@ brew install gist
 brew install nmap
 brew install resty
 brew install tree
+
+# Remove outdated versions from the cellar
+brew cleanup
