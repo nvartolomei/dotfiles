@@ -83,6 +83,17 @@ function codepoint() {
 	echo # newline
 }
 
+# Get current playing song lyrics and sing
+function lyrics() {
+	artist=`osascript -e'tell application "iTunes"' -e'get artist of current track' -e'end tell'`
+	title=`osascript -e'tell application "iTunes"' -e'get name of current track' -e'end tell'`
+
+	song=`curl -G --data-urlencode "artist=${artist}" \
+	 	--data-urlencode "title=${title}" -s http://makeitpersonal.co/lyrics`
+
+	echo -e "${artist} - ${title}\n${song}" | less
+}
+
 # Add note to Notes.app (OS X 10.8)
 # Usage: `note 'foo'` or `echo 'foo' | note`
 function note() {
