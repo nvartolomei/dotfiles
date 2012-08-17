@@ -18,14 +18,14 @@ dataurl() {
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
-    python - "${1:-8000}" <<EOF
+	python - "${1:-8000}" <<EOF
 import os
 import sys
 import SimpleHTTPServer
 map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map
 map[""] = "text/plain"
 for key, value in map.items():
-    map[key] = value + ";charset=UTF-8"
+	map[key] = value + ";charset=UTF-8"
 os.system("open http://localhost:" + sys.argv[1])
 SimpleHTTPServer.test()
 EOF
@@ -56,7 +56,7 @@ function json() {
 	if [ -t 0 ]; then # argument
 		python -mjson.tool <<< "$*" | pygmentize -l javascript
 	else # pipe
-	    python -mjson.tool | pygmentize -l javascript
+		python -mjson.tool | pygmentize -l javascript
 	fi
 }
 
@@ -89,7 +89,7 @@ function lyrics() {
 	title=`osascript -e'tell application "iTunes"' -e'get name of current track' -e'end tell'`
 
 	song=`curl -G --data-urlencode "artist=${artist}" \
-	 	--data-urlencode "title=${title}" -s http://makeitpersonal.co/lyrics`
+		--data-urlencode "title=${title}" -s http://makeitpersonal.co/lyrics`
 
 	echo -e "${artist} - ${title}\n${song}" | less
 }
