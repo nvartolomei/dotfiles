@@ -41,5 +41,5 @@ complete -o "nospace" -W "Finder Dock Mail Safari iTunes Calendar Contacts \
 for file in /usr/local/etc/bash_completion.d/*      
 do
     [ -r "$file" ] && source "$file"
-done      
+done
 unset file
