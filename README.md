@@ -34,8 +34,7 @@ cd; curl -#L https://github.com/nvartolomei/dotfiles/tarball/master | tar -xzv -
 
 To update later on, just run that command again.
 
-Looking there for a way to sync silencely around servers. Maybe I will end with
-cron + rsync.
+Also I'm writting the script to synchronize *dotfiles* across servers.
 
 ### Add custom commands without creating a new fork
 
@@ -46,7 +45,8 @@ repository.
 
 ### Sensible OS X defaults
 
-When setting up a new Mac, you may want to set some sensible OS X defaults:
+When setting up a new Mac, you may want to set some sensible OS X defaults,
+but don't forget to take a look at `.osx` file before applying them and bang:
 
 ```bash
 ./.osx
@@ -56,7 +56,7 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 
 ## Thanks to…
 
-* [Mathias Bynens](http://mathiasbynens.be/) for [original upstream](https://github.com/mathiasbynens/dotfiles)
+* [Mathias Bynens](http://mathiasbynens.be/) for [upstream](https://github.com/mathiasbynens/dotfiles)
 
 and all credits given by Mathias
 
