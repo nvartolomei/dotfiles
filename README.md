@@ -1,4 +1,4 @@
-# nvartolomei's dotfiles
+# nvartolomei's dotfiles ♥ ~/
 
 ## Installation
 
