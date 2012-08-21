@@ -52,7 +52,7 @@ but don't forget to take a look at `.osx` file before applying them and bang:
 ./.osx
 ```
 
-## Feedback
+## κολοφων
 
 ## Thanks to…
 
