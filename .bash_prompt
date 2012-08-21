@@ -58,3 +58,46 @@ else
 fi
 
 export PS2="\[$ORANGE\] → \[$RESET\]"
+
+# PS4 for debugging purposes written intially by awesome @janmoesen for `tilde`
+# Include the current file and line number when tracing using "set -x". (You
+# can also include "\$FUNCNAME" to get the currently executing function, if
+# any.)
+ps4_parts=(
+    # Same as the default: start with a plus sign that gets repeated based on
+    # the current stack depth. (Bash repeats the first character of PS4.)
+    '+ '
+
+    # Make the following extra information stand out less.
+    "${MAGENTA}${BOLD}"
+
+    # Show the name of the current shell function, if any.
+    '${FUNCNAME}'
+
+    # Show the basename and line number of the source file or function, if
+    # any. If there was a function name, put an "@" between the function name
+    # and the file/function.
+    '${BASH_SOURCE:+${FUNCNAME:+@}}'
+
+    "${ORANGE}"
+
+    # Note that LINENO is reset from 1 inside a function body. Sometimes,
+    # $LINENO is a negative number. I could not find any reference to this in
+    # the man page, but it seems to have to happen when returning from another
+    # function. Until I understand this more completely, I wrap it in
+    # parentheses to clarify that it is not a regular line number.
+    '${BASH_SOURCE:+${BASH_SOURCE##*/}:${LINENO/#-*/($LINENO)}}'
+
+    # Use a tab to separate the file/function and line number from the actual
+    # line of code, rather than a space, because this helps legibility. (It
+    # decreases the "jaggedness" caused by differing lengthts of file names
+    # and line numbers.) I prefer this to a newline because it keeps the trace
+    # more compact.
+    $'\t'
+
+    # Reset the colour and style.
+    "${RESET}"
+);
+printf -v PS4 '%s' "${ps4_parts[@]}";
+export PS4;
+unset ps4_parts;
