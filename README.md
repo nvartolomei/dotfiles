@@ -1,4 +1,4 @@
-# nvartolomei ♥ ~/
+### nvartolomei ♥ ~/
 
 ## Installation
 
@@ -52,9 +52,9 @@ but don't forget to take a look at `.osx` file before applying them and bang:
 ./.osx
 ```
 
-## κολοφων
+## Colophon
 
-## Thanks to…
+Thanks to…
 
 * [Mathias Bynens](http://mathiasbynens.be/) for [upstream](https://github.com/mathiasbynens/dotfiles)
 
