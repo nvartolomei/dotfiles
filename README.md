@@ -57,9 +57,6 @@ but don't forget to take a look at `.osx` file before applying them and bang:
 Thanks to…
 
 * [Mathias Bynens](http://mathiasbynens.be/) for [upstream](https://github.com/mathiasbynens/dotfiles)
-
-and all credits given by Mathias
-
 * [Gianni Chiappetta](http://gf3.ca/) for sharing his [amazing collection of dotfiles](https://github.com/gf3/dotfiles)
 * [Matijs Brinkhuis](http://hotfusion.nl/) and his [homedir repository](https://github.com/matijs/homedir)
 * [Jan Moesen](http://jan.moesen.nu/) and his [ancient `.bash_profile`](https://gist.github.com/1156154) + [shiny tilde repository](https://github.com/janmoesen/tilde)
