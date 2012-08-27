@@ -110,17 +110,8 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
-# fast workplace lock
+# Fast workplace lock
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
-
-# git Aliases
-alias ga="git add"
-alias gc="git commit -am"
-alias gl="git pull origin master"
-alias gp="git push origin master"
-alias gd="git diff"
-alias glog="git log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(blue)(%cr @ %an)%Creset' --abbrev-commit --date=relative"
-alias gs="git status -sb"
 
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
