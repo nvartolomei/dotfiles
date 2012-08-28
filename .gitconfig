@@ -5,8 +5,10 @@
 	s = status -sb
 	# Diff
 	d = diff --patch-with-stat
-	# Pull in remote changes for the current repository and all its submodules
-	p = !"git pull; git submodule foreach git pull origin master"
+	# Pull remote change
+	ll = pull
+	# Push changes
+	p = push
 	# Clone a repository including all submodules
 	c = clone --recursive
 	# Commit all changes
