@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")"
-#git pull
+
+set -e
 
 now=$(date +%s)
 
