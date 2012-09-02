@@ -17,6 +17,9 @@ brew install wget --enable-iri
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
 
+# Install completion (dotfiles completions need this)
+brew install bash-completion
+
 # Install everything else
 brew install git
 brew install htop
