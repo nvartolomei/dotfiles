@@ -9,19 +9,19 @@ pull in the latest version and copy the files to your home folder. Please note
 that all existing files will be overwritten by `bootstrap.sh` script.
 
 ```bash
-git clone https://github.com/nvartolomei/dotfiles.git --recursive && cd dotfiles && ./bootstrap.sh
+git clone https://github.com/nvartolomei/dotfiles.git --recursive && cd dotfiles && script/bootstrap
 ```
 
 To update, `cd` into your local `dotfiles` repository and then:
 
 ```bash
-./bootstrap.sh
+script/bootstrap
 ```
 
 Alternatively, to update while avoiding the confirmation prompt:
 
 ```bash
-./bootstrap.sh -f
+script/bootstrap -f
 ```
 
 To update later on, just run that command again.
@@ -36,10 +36,16 @@ repository.
 ### Sensible OS X defaults
 
 When setting up a new Mac, you may want to set some sensible OS X defaults,
-but don't forget to take a look at `.osx` file before applying them and bang:
+but don't forget to take a look at `script/osx` file before applying them and bang:
 
 ```bash
-./.osx
+script/osx
+```
+
+### Homebrew common packages for developers
+
+```bash
+script/osx
 ```
 
 ## ♥ Colophon

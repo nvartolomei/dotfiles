@@ -284,7 +284,7 @@ defaults write com.apple.dock expose-group-by-app -bool true
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Disable Dashboard completely
-defaults write com.apple.dashboard mcx-disabled -bool 
+defaults write com.apple.dashboard mcx-disabled -bool true
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.Dock autohide-delay -float 0

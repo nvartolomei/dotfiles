@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Check for Homebrew
+if test ! $(which brew)
+then
+  echo "  x Homebrew not found. Please install it:"
+  echo "    https://github.com/mxcl/homebrew/wiki/installation"
+  exit
+fi
+
 # Make sure we’re using the latest Homebrew
 brew update
 
