@@ -97,7 +97,7 @@ ps4_parts=(
 
     # Reset the colour and style.
     "${RESET}"
-);
-printf -v PS4 '%s' "${ps4_parts[@]}";
-export PS4;
-unset ps4_parts;
+)
+printf -v PS4 '%s' "${ps4_parts[@]}"
+export PS4
+unset ps4_parts
