@@ -40,8 +40,5 @@ unset do_sync
 unset do_backup
 unset now
 
-# Check what homebrew is saying
-# source ~/.brew
-
 # Reaload bash_profile
 source ~/.bash_profile
