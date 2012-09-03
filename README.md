@@ -45,7 +45,7 @@ script/osx
 ### Homebrew common packages for developers
 
 ```bash
-script/osx
+script/homebrew
 ```
 
 ## ♥ Colophon
