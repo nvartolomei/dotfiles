@@ -1,5 +1,11 @@
 " Make vim more useful
 set nocompatible
+
+" Load pathogen submodule
+silent! runtime bundle/vim-pathogen/autoload/pathogen.vim
+" Call pathogen plugin management
+silent! call pathogen#infect()
+
 " Enhance command-line completion
 set wildmenu
 " Allow cursor keys in insert mode
