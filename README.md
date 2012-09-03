@@ -26,6 +26,28 @@ script/bootstrap -f
 
 To update later on, just run that command again.
 
+### Specify the `$PATH`
+
+If `~/.path` exists, it will be sourced along with the other files, before any feature testing takes place.
+
+Here’s an example `~/.path` I use:
+
+```bash
+# PATH additions
+path_additions=(
+    "/usr/local/cuda/bin"
+    "$(brew --prefix coreutils)/libexec/gnubin"
+    "$(brew --prefix ruby)/bin"
+
+    "$PATH"
+)
+
+printf -v PATH '%s:' "${path_additions[@]}"
+export PATH
+
+unset path_additions
+```
+
 ### Add custom commands without creating a new fork
 
 If `~/.extra` exists, it will be sourced along with the other files. 
