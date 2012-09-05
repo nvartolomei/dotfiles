@@ -19,8 +19,11 @@ shopt -s cdspell
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
-# Load rupa's z if installed
-[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+# Move next only if `homebrew` is installed
+if command -v brew >/dev/null 2>&1; then
+    # Load rupa's z if installed
+    [ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
 
-# If possible, add tab completion for many more commands
-[ -f $(brew --prefix)/etc/bash_completion ] && source $(brew --prefix)/etc/bash_completion
+    # If possible, add tab completion for many more commands
+    [ -f $(brew --prefix)/etc/bash_completion ] && source $(brew --prefix)/etc/bash_completion
+fi
