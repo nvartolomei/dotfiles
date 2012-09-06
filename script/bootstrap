@@ -2,8 +2,6 @@
 
 cd "$(dirname "$0")/../"
 
-set -e
-
 now=$(date +%s)
 
 function do_backup() {
