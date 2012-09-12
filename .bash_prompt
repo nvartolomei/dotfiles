@@ -13,7 +13,7 @@ if tput setaf 1 &> /dev/null; then
         ORANGE=$(tput setaf 172)
         GREEN=$(tput setaf 190)
         PURPLE=$(tput setaf 141)
-        WHITE=$(tput setaf 7)
+        WHITE=$(tput setaf 256)
     else
         MAGENTA=$(tput setaf 5)
         ORANGE=$(tput setaf 4)
@@ -54,7 +54,7 @@ parse_git_branch () {
 if [[ ! -n $SSH_TTY ]]; then
     export PS1="\[${BOLD}${WHITE}\] λ \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n ⚡ \[$RESET\]"
 else
-    export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n » \[$RESET\]"
+    export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \[$PURPLE\]git:\")\$(parse_git_branch)\[$WHITE\]\n ⚡ \[$RESET\]"
 fi
 
 export PS2="\[$ORANGE\] → \[$RESET\]"
