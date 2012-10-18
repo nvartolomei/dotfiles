@@ -15,7 +15,7 @@ function do_backup() {
 }
 
 function do_sync() {
-    rsync --exclude ".git/" --exclude ".gitmodules"
+    rsync --exclude ".git/" --exclude ".gitmodules" \
           --exclude ".DS_Store" \
           --exclude "script/" --exclude "README.md" -av . ~
 }
