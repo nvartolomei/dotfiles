@@ -28,6 +28,9 @@ brew install homebrew/dupes/grep
 # Install completion (dotfiles completions need this)
 brew install bash-completion
 
+# Install latest version of bash shell
+brew install bash
+
 # Install everything else
 brew install git
 brew install htop
