@@ -42,6 +42,7 @@ brew install resty
 brew install tree
 brew install mtr
 brew install z
+brew install vim
 
 # Remove outdated versions from the cellar
 brew cleanup
