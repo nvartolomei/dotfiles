@@ -30,6 +30,7 @@ brew install bash-completion
 
 # Install latest version of bash shell
 brew install bash
+echo "Don't forget to change shell to $(brew --prefix bash)/bin/bash."
 
 # Install everything else
 brew install git
