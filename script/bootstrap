@@ -17,7 +17,7 @@ function do_backup() {
 function do_sync() {
     rsync --exclude ".git/" --exclude ".gitmodules" \
           --exclude ".DS_Store" \
-          --exclude "script/" --exclude "README.md" -av . ~
+          --exclude "script/" --exclude "README.md" -avq . ~
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
@@ -38,5 +38,6 @@ unset do_sync
 unset do_backup
 unset now
 
-# Reaload bash_profile
-source ~/.bash_profile
+# Bash profile notice
+echo "Please restart Bash to see changes!"
+echo "Or run: \`dot-reload\` to make changes immediately."

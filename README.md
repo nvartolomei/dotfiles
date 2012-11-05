@@ -1,8 +1,18 @@
-### nvartolomei ♥ ~/
+     _______________________________________ 
+    /                  _    _      /\/|  __ \
+    |  _ ____   __    /` \/ `\    |/\/  / / |
+    | | '_ \ \ / /    \      /         / /  |
+    | | | | \ V /      '.  .'         / /   |
+    | |_| |_|\_/         \/          /_/    |
+    \                                       /
+     --------------------------------------- 
+            \   ^__^
+             \  (oo)\_______
+                (__)\       )\/\
+                    ||----w |
+                    ||     ||
 
-## Installation
-
-### Using Git and the bootstrap script
+#### Using Git and the bootstrap script
 
 You can clone the repository wherever you want. The bootstrapper script will 
 pull in the latest version and copy the files to your home folder. Please note
@@ -26,7 +36,7 @@ script/bootstrap -f
 
 To update later on, just run that command again.
 
-### Specify the `$PATH`
+#### Specify the `$PATH`
 
 If `~/.path` exists, it will be sourced along with the other files, before any feature testing takes place.
 
@@ -48,14 +58,14 @@ export PATH
 unset path_additions
 ```
 
-### Add custom commands without creating a new fork
+#### Add custom commands without creating a new fork
 
 If `~/.extra` exists, it will be sourced along with the other files. 
 You can use this to add a few custom commands without the need to fork this
 entire repository, or to add commands you don’t want to commit to a public
 repository.
 
-### Sensible OS X defaults
+#### Sensible OS X defaults
 
 When setting up a new Mac, you may want to set some sensible OS X defaults,
 but don't forget to take a look at `script/osx` file before applying them and bang:
@@ -64,13 +74,13 @@ but don't forget to take a look at `script/osx` file before applying them and ba
 script/osx
 ```
 
-### Homebrew common packages for developers
+#### Homebrew common packages for developers
 
 ```bash
 script/homebrew
 ```
 
-## ♥ Colophon
+#### ♥ Colophon
 
 Thanks to…
 
