@@ -24,6 +24,7 @@ brew install wget --enable-iri
 # Install more recent versions of some OS X tools
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
+brew install homebrew/dupes/less
 
 # Install completion (dotfiles completions need this)
 brew install bash-completion
