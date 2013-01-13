@@ -79,6 +79,9 @@ systemsetup -setrestartfreeze on
 # Never go into computer sleep mode
 systemsetup -setcomputersleep Off > /dev/null
 
+# Disable notification center & remove the menu bar icon
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
