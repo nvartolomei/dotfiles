@@ -1,23 +1,23 @@
-" Base16 Green Screen (https://github.com/chriskempson/base16)
-" Scheme: Chris Kempson (http://chriskempson.com)
+" Base16 Railscasts (https://github.com/chriskempson/base16)
+" Scheme: Ryan Bates (http://railscasts.com)
 
 " GUI Base16 Color Definitions
-let s:gui00 = "001100"
-let s:gui01 = "003300"
-let s:gui02 = "005500"
-let s:gui03 = "007700"
-let s:gui04 = "009900"
-let s:gui05 = "00bb00"
-let s:gui06 = "00dd00"
-let s:gui07 = "00ff00"
-let s:gui08 = "007700"
-let s:gui09 = "009900"
-let s:gui0A = "007700"
-let s:gui0B = "00bb00"
-let s:gui0C = "005500"
-let s:gui0D = "009900"
-let s:gui0E = "00bb00"
-let s:gui0F = "005500"
+let s:gui00 = "2b2b2b"
+let s:gui01 = "272935"
+let s:gui02 = "3a4055"
+let s:gui03 = "5a647e"
+let s:gui04 = "d4cfc9"
+let s:gui05 = "e6e1dc"
+let s:gui06 = "f4f1ed"
+let s:gui07 = "f9f7f3"
+let s:gui08 = "da4939"
+let s:gui09 = "cc7833"
+let s:gui0A = "ffc66d"
+let s:gui0B = "a5c261"
+let s:gui0C = "519f50"
+let s:gui0D = "6d9cbe"
+let s:gui0E = "b6b3eb"
+let s:gui0F = "bc9458"
 
 " Terminal Base16 Color Definitions
 let s:cterm00 = "00"
@@ -49,7 +49,7 @@ endif
 " Theme Setup
 hi clear
 syntax reset
-let g:colors_name = "base16-greenscreen"
+let g:colors_name = "base16-railscasts"
 
 " Highlighting function
 fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
@@ -171,10 +171,10 @@ call <SID>hi("Type",         s:gui09, "", s:cterm09, "", "none")
 call <SID>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "")
 
 " Spelling Highlighting
-call <SID>hi("SpellBad",     s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+call <SID>hi("SpellBad",     s:gui05, s:gui00, s:cterm05, s:cterm08, "")
+call <SID>hi("SpellLocal",   s:gui05, s:gui00, s:cterm05, s:cterm0D, "")
 "call <SID>hi("SpellCap",    s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 "call <SID>hi("SpellRare",   s:gui00, s:gui08, s:cterm00, s:cterm08, "")
-"call <SID>hi("SpellLocal",  s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 
 " Additional Diff Highlighting
 call <SID>hi("DiffAdded",    s:gui0B, "", s:cterm0B, "", "")

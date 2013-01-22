@@ -1,23 +1,23 @@
-" Base16 Monokai (https://github.com/chriskempson/base16)
-" Scheme: Wimer Hazenberg (http://www.monokai.nl)
+" Base16 Mocha (https://github.com/chriskempson/base16)
+" Scheme: Chris Kempson (http://chriskempson.com)
 
 " GUI Base16 Color Definitions
-let s:gui00 = "272822"
-let s:gui01 = "383830"
-let s:gui02 = "49483e"
-let s:gui03 = "75715e"
-let s:gui04 = "a59f85"
-let s:gui05 = "f8f8f2"
-let s:gui06 = "f5f4f1"
-let s:gui07 = "f9f8f5"
-let s:gui08 = "f92672"
-let s:gui09 = "fd971f"
-let s:gui0A = "f4bf75"
-let s:gui0B = "a6e22e"
-let s:gui0C = "a1efe4"
-let s:gui0D = "66d9ef"
-let s:gui0E = "ae81ff"
-let s:gui0F = "cc6633"
+let s:gui00 = "3B3228"
+let s:gui01 = "534636"
+let s:gui02 = "645240"
+let s:gui03 = "7e705a"
+let s:gui04 = "b8afad"
+let s:gui05 = "d0c8c6"
+let s:gui06 = "e9e1dd"
+let s:gui07 = "f5eeeb"
+let s:gui08 = "cb6077"
+let s:gui09 = "d28b71"
+let s:gui0A = "f4bc87"
+let s:gui0B = "beb55b"
+let s:gui0C = "7bbda4"
+let s:gui0D = "8ab3b5"
+let s:gui0E = "a89bb9"
+let s:gui0F = "bb9584"
 
 " Terminal Base16 Color Definitions
 let s:cterm00 = "00"
@@ -49,7 +49,7 @@ endif
 " Theme Setup
 hi clear
 syntax reset
-let g:colors_name = "base16-monokai"
+let g:colors_name = "base16-mocha"
 
 " Highlighting function
 fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
@@ -171,10 +171,10 @@ call <SID>hi("Type",         s:gui09, "", s:cterm09, "", "none")
 call <SID>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "")
 
 " Spelling Highlighting
-call <SID>hi("SpellBad",     s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+call <SID>hi("SpellBad",     s:gui05, s:gui00, s:cterm05, s:cterm08, "")
+call <SID>hi("SpellLocal",   s:gui05, s:gui00, s:cterm05, s:cterm0D, "")
 "call <SID>hi("SpellCap",    s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 "call <SID>hi("SpellRare",   s:gui00, s:gui08, s:cterm00, s:cterm08, "")
-"call <SID>hi("SpellLocal",  s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 
 " Additional Diff Highlighting
 call <SID>hi("DiffAdded",    s:gui0B, "", s:cterm0B, "", "")

@@ -1,23 +1,23 @@
-" Base16 Tomorrow (https://github.com/chriskempson/base16)
+" Base16 Ocean (https://github.com/chriskempson/base16)
 " Scheme: Chris Kempson (http://chriskempson.com)
 
 " GUI Base16 Color Definitions
-let s:gui00 = "1d1f21"
-let s:gui01 = "282a2e"
-let s:gui02 = "373b41"
-let s:gui03 = "969896"
-let s:gui04 = "b4b7b4"
-let s:gui05 = "c5c8c6"
-let s:gui06 = "e0e0e0"
-let s:gui07 = "ffffff"
-let s:gui08 = "cc6666"
-let s:gui09 = "de935f"
-let s:gui0A = "f0c674"
-let s:gui0B = "b5bd68"
-let s:gui0C = "8abeb7"
-let s:gui0D = "81a2be"
-let s:gui0E = "b294bb"
-let s:gui0F = "a3685a"
+let s:gui00 = "2b303b"
+let s:gui01 = "343d46"
+let s:gui02 = "4f5b66"
+let s:gui03 = "65737e"
+let s:gui04 = "a7adba"
+let s:gui05 = "c0c5ce"
+let s:gui06 = "dfe1e8"
+let s:gui07 = "eff1f5"
+let s:gui08 = "bf616a"
+let s:gui09 = "d08770"
+let s:gui0A = "ebcb8b"
+let s:gui0B = "a3be8c"
+let s:gui0C = "96b5b4"
+let s:gui0D = "8fa1b3"
+let s:gui0E = "b48ead"
+let s:gui0F = "ab7967"
 
 " Terminal Base16 Color Definitions
 let s:cterm00 = "00"
@@ -49,7 +49,7 @@ endif
 " Theme Setup
 hi clear
 syntax reset
-let g:colors_name = "base16-tomorrow"
+let g:colors_name = "base16-ocean"
 
 " Highlighting function
 fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
@@ -171,10 +171,10 @@ call <SID>hi("Type",         s:gui09, "", s:cterm09, "", "none")
 call <SID>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "")
 
 " Spelling Highlighting
-call <SID>hi("SpellBad",     s:gui00, s:gui08, s:cterm00, s:cterm08, "")
+call <SID>hi("SpellBad",     s:gui05, s:gui00, s:cterm05, s:cterm08, "")
+call <SID>hi("SpellLocal",   s:gui05, s:gui00, s:cterm05, s:cterm0D, "")
 "call <SID>hi("SpellCap",    s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 "call <SID>hi("SpellRare",   s:gui00, s:gui08, s:cterm00, s:cterm08, "")
-"call <SID>hi("SpellLocal",  s:gui00, s:gui08, s:cterm00, s:cterm08, "")
 
 " Additional Diff Highlighting
 call <SID>hi("DiffAdded",    s:gui0B, "", s:cterm0B, "", "")
