@@ -103,3 +103,6 @@ augroup myvimrc
     au!
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
+
+" Configure ack.vim to use the_silver_searcher instead
+let g:ackprg = 'ag --nogroup --nocolor --column'
