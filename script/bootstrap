@@ -4,7 +4,7 @@ cd "$(dirname "$0")/../"
 
 now=$(date +%s)
 
-function do_backup() {
+do_backup() {
     shopt -s dotglob
 
     mkdir -p "$HOME/.backups/$now"
@@ -14,7 +14,7 @@ function do_backup() {
     done
 }
 
-function do_sync() {
+do_sync() {
     rsync --exclude ".git/" --exclude ".gitmodules" \
           --exclude ".DS_Store" \
           --exclude "script/" --exclude "README.md" -avq . ~

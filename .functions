@@ -1,5 +1,5 @@
 # Simple calculator
-function calc() {
+calc() {
 	local result=""
 	result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
 	#                       └─ default (when `--mathlib` is used) is 20
@@ -17,12 +17,12 @@ function calc() {
 }
 
 # Create a new directory and enter it
-function md() {
+md() {
 	mkdir -p "$@" && cd "$@"
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh
 	else
@@ -49,7 +49,7 @@ dataurl() {
 }
 
 # Start an HTTP server from a directory, optionally specifying the port
-function server() {
+server() {
 	python - "${1:-8000}" <<EOF
 import os
 import sys
@@ -65,13 +65,13 @@ EOF
 
 # Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
 # Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
-function httpcompression() {
+httpcompression() {
 	encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
 }
 
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
-function json() {
+json() {
 	if [ -t 0 ]; then # argument
 		python -mjson.tool <<< "$*" | pygmentize -l javascript
 	else # pipe
@@ -80,30 +80,30 @@ function json() {
 }
 
 # All the dig info
-function digga() {
+digga() {
 	dig +nocmd "$1" any +multiline +noall +answer
 }
 
 # Escape UTF-8 characters into their 3-byte format
-function escape() {
+escape() {
 	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
 	echo # newline
 }
 
 # Decode \x{ABCD}-style Unicode escape sequences
-function unidecode() {
+unidecode() {
 	perl -e "binmode(STDOUT, ':utf8'); print \"$@\""
 	echo # newline
 }
 
 # Get a character’s Unicode code point
-function codepoint() {
+codepoint() {
 	perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))"
 	echo # newline
 }
 
 # Get current playing song lyrics and rock
-function lyrics() {
+lyrics() {
 	artist=`osascript -e'tell application "iTunes"' -e'get artist of current track' -e'end tell'`
 	title=`osascript -e'tell application "iTunes"' -e'get name of current track' -e'end tell'`
 
@@ -115,7 +115,7 @@ function lyrics() {
 
 # Add note to Notes.app (OS X 10.8)
 # Usage: `note 'foo'` or `echo 'foo' | note`
-function note() {
+note() {
 	local text
 	if [ -t 0 ]; then # argument
 		text="$1"
@@ -136,7 +136,7 @@ EOF
 
 # Add reminder to Reminders.app (OS X 10.8)
 # Usage: `remind 'foo'` or `echo 'foo' | remind`
-function remind() {
+remind() {
 	local text
 	if [ -t 0 ]; then
 		text="$1" # argument
