@@ -49,7 +49,7 @@ endif
 " Theme Setup
 hi clear
 syntax reset
-let g:colors_name = "base16-greenscreen"
+let g:colors_name = "0x-greenscreen"
 
 " Highlighting function
 fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)

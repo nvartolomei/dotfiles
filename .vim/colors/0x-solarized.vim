@@ -49,7 +49,7 @@ endif
 " Theme Setup
 hi clear
 syntax reset
-let g:colors_name = "base16-solarized"
+let g:colors_name = "0x-solarized"
 
 " Highlighting function
 fun! <SID>hi(group, guifg, guibg, ctermfg, ctermbg, attr)

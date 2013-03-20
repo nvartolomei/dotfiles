@@ -29,7 +29,7 @@ if exists("&undodir")
 endif
 " Colors
 let base16colorspace=256  " Access colors present in 256 colorspace
-colors base16-default
+colors 0x-default
 set background=dark
 " Enable line numbers
 set number
