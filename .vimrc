@@ -76,6 +76,9 @@ set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+"
+filetype plugin on
+
 " Backspace key behavior
 set backspace=indent,eol,start
 
