@@ -23,3 +23,6 @@ if command -v brew >/dev/null 2>&1; then
     # If possible, add tab completion for many more commands
     [ -f $(brew --prefix)/etc/bash_completion ] && source $(brew --prefix)/etc/bash_completion
 fi
+
+# Enable git command  autocompletion for 'g' as well
+complete -o default -o nospace -F _git g
