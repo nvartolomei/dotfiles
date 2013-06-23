@@ -100,11 +100,7 @@ function prompt_git() {
 
 # Here we have two different PS1 strings, when I'm on local machine, I don't
 # need to know what user I am or on what computer I'm hacking.
-if [[ ! -n $SSH_TTY ]]; then
-    export PS1="\[${BOLD}${WHITE}\] λ \[$GREEN\]\w\[$WHITE\]\$(prompt_git)\[$WHITE\]\n ⚡ \[$RESET\]"
-else
-    export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$(prompt_git)\[$WHITE\]\n ⚡ \[$RESET\]"
-fi
+export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
 
 export PS2="\[$ORANGE\] → \[$RESET\]"
 
