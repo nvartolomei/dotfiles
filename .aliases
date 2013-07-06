@@ -116,6 +116,8 @@ done
 # Fast workplace lock
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
+alias bootcamp='sudo bless -mount "/Volumes/BOOTCAMP" -legacy -setBoot -nextonly;sudo shutdown -r now'
+
 # Dotfiles specific aliases
 alias dot-reload='source ~/.bash_profile && echo "dotfiles reloaded successfuly!"'
 
