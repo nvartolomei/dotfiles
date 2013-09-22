@@ -21,6 +21,15 @@ md() {
 	mkdir -p "$@" && cd "$@"
 }
 
+# o with no arguments opens current directory, otherwise opens given location
+function o() {
+	if [ $# -eq 0 ]; then
+		open .
+	else
+		open "$@"
+	fi
+}
+
 # Determine size of a file or total size of a directory
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
