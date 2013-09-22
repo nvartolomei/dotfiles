@@ -30,6 +30,16 @@ function o() {
 	fi
 }
 
+# `s` with no arguments opens the current directory in Sublime, otherwise opens
+# the given location
+function s() {
+	if [ $# -eq 0 ]; then
+		subl .
+	else
+		subl "$@"
+	fi
+}
+
 # Determine size of a file or total size of a directory
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
