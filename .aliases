@@ -9,7 +9,7 @@ alias sites="cd ~/Sites"
 alias p="cd ~/Projects"
 alias g="git"
 
-alias nsf="lsof -P -i -n -c 16| awk '{print $1}' | uniq"
+alias nsf='lsof -P -i -n -c 16 | awk '\''{print $1}'\'' | uniq'
 
 # Detect which `ls` flavor is in use
 if ls --color 2> /dev/null | grep -q 'invalid option'; then # OS X `ls`
