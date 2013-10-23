@@ -38,7 +38,6 @@ brew install git
 brew install htop
 brew install node
 brew install ssh-copy-id
-brew install gist
 brew install nmap
 brew install resty
 brew install tree
