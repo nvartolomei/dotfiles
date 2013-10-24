@@ -98,9 +98,7 @@ function prompt_git() {
     printf " on ${PURPLE}git:${git_info}"
 }
 
-# Here we have two different PS1 strings, when I'm on local machine, I don't
-# need to know what user I am or on what computer I'm hacking.
-export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
+export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\${PWD/#\$HOME/~}\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
 
 export PS2="\[$ORANGE\] → \[$RESET\]"
 
