@@ -114,7 +114,7 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 done
 
 # Fast workplace lock
-alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
 # Reboot using BOOTCAMP partition
 alias bootcamp='sudo bless -mount "/Volumes/BOOTCAMP" -legacy -setBoot -nextonly;sudo shutdown -r now'
