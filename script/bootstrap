@@ -16,7 +16,7 @@ do_backup() {
 
 do_sync() {
     rsync --exclude ".git/" --exclude ".gitmodules" \
-          --exclude ".DS_Store" \
+          --exclude ".DS_Store" --exclude "Brewfile" \
           --exclude "script/" --exclude "README.md" -avq . ~
 }
 
@@ -40,4 +40,3 @@ unset now
 
 # Bash profile notice
 echo "Please restart Bash to see changes!"
-echo "Or run: \`dot-reload\` to make changes immediately."

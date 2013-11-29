@@ -1,10 +1,9 @@
-# Easier navigation: .., ..., ~ and -
+# Easier navigation: .., ..., and -
 alias ..="cd .."
 alias ...="cd ../.."
 alias -- -="cd -"
 
 # Shortcuts
-alias sites="cd ~/Sites"
 alias p="cd ~/Projects"
 alias g="git"
 
@@ -37,9 +36,6 @@ alias sudo='sudo '
 # Gzip-enabled `curl`
 alias gurl="curl --compressed"
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update'
-
 # IP addresses
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias myips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
@@ -49,9 +45,6 @@ alias whois="whois -h whois-servers.net"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
-
-# Clean up LaunchServices to remove duplicates in the “Open With” menu
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
@@ -63,17 +56,11 @@ command -v hd > /dev/null || alias hd="hexdump -C"
 # OS X has no `md5sum`, so use `md5` as a fallback
 command -v md5sum > /dev/null || alias md5sum="md5"
 
-# Trim new lines and copy to clipboard
-alias cb="tr -d '\n' | pbcopy"
-
 # `cat` with beautiful colors
 alias c='pygmentize -O style=monokai -f console256 -g'
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
-
-# ROT13-encode text. Works for decoding, too! ;)
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # Map function (via: https://coderwall.com/p/4tkkpq)
 alias map="xargs -n1"
@@ -82,20 +69,12 @@ alias map="xargs -n1"
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.Finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.Finder AppleShowAllFiles -bool false && killall Finder"
-
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
-
-# Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
 
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"
@@ -118,11 +97,3 @@ alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reboot using BOOTCAMP partition
 alias bootcamp='sudo bless -mount "/Volumes/BOOTCAMP" -legacy -setBoot -nextonly;sudo shutdown -r now'
-
-# Dotfiles specific aliases
-alias dot-reload='source ~/.bash_profile && echo "dotfiles reloaded successfuly!"'
-
-# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 7'"
-alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
