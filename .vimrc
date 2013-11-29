@@ -28,8 +28,7 @@ if exists("&undodir")
     set undodir=~/.vim/undo
 endif
 " Colors
-let base16colorspace=256  " Access colors present in 256 colorspace
-colors 0x-default
+colors Tomorrow-Night-Bright
 set background=dark
 " Enable line numbers
 set number
