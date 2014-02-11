@@ -13,7 +13,8 @@ if tput setaf 1 &> /dev/null; then
         ORANGE=$(tput setaf 172)
         GREEN=$(tput setaf 190)
         PURPLE=$(tput setaf 141)
-        WHITE=$(tput setaf 0)
+        WHITE=$(tput setaf 244)
+        YELLOW=$(tput setaf 136)
     else
         MAGENTA=$(tput setaf 5)
         ORANGE=$(tput setaf 4)
@@ -38,6 +39,7 @@ export ORANGE
 export GREEN
 export PURPLE
 export WHITE
+export YELLOW
 export BOLD
 export RESET
 
@@ -95,7 +97,7 @@ function prompt_git() {
         git_info="$git_info[$git_state]"
     fi
 
-    printf " on ${PURPLE}git:${git_info}"
+    printf " on ${YELLOW}git:${git_info}"
 }
 
 export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\${PWD/#\$HOME/~}\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
