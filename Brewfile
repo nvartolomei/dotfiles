@@ -12,7 +12,6 @@ install coreutils
 install wget --enable-iri
 
 # Install more recent versions of some OS X tools
-tap homebrew/dupes
 install homebrew/dupes/grep
 install homebrew/dupes/less
 
