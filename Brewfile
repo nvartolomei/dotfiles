@@ -38,6 +38,7 @@ install the_silver_searcher
 install ack
 install grep
 install less
+install pv
 
 # Remove outdated versions from the cellar
 cleanup
