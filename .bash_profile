@@ -27,6 +27,6 @@ fi
 # Enable git command  autocompletion for 'g' as well
 complete -o default -o nospace -F _git g
 
-# Get rid of XOFF message for CTRL-S (use this for vim write istead)
+# Fuckof for XOFF message for CTRL-S (use this for vim write istead)
 bind -r '\C-s'
 stty -ixon
