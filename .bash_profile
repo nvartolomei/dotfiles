@@ -29,6 +29,6 @@ if type _git > /dev/null 2>&1   ; then
     complete -o default -o nospace -F _git g
 fi
 
-# Get rid of XOFF message for CTRL-S (use this for vim write istead)
+# Fuckof for XOFF message for CTRL-S (use this for vim write istead)
 bind -r '\C-s'
 stty -ixon
