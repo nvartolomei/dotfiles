@@ -15,9 +15,13 @@ do_backup() {
 }
 
 do_sync() {
-    rsync --exclude ".git/" --exclude ".gitmodules" \
+    rsync --exclude ".git/" --exclude ".gitmodules"  \
           --exclude ".DS_Store" --exclude "Brewfile" \
-          --exclude "script/" --exclude "README.md" -avq . ~
+          --exclude "script/" --exclude "README.md"  \
+          --exclude "spf13-vim"                      \
+          -avq . ~
+
+    sh spf13-vim/bootstrap.sh
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
