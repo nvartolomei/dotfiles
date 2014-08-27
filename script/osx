@@ -16,6 +16,9 @@ sudo scutil --set HostName "thorus"
 sudo scutil --set LocalHostName "thorus"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "thorus"
 
+# Set standby delay to 3 hours (this is perfect value for me)
+sudo pmset -a standbydelay 10800
+
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
