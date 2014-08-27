@@ -1,17 +1,3 @@
-                                     _______________________________________ 
-                                    /                  _    _      /\/|  __ \
-                                    |  _ ____   __    /` \/ `\    |/\/  / / |
-                                    | | '_ \ \ / /    \      /         / /  |
-                                    | | | | \ V /      '.  .'         / /   |
-                                    | |_| |_|\_/         \/          /_/    |
-                                    \                                       /
-                                     --------------------------------------- 
-                                                            \   ^__^
-                                                             \  (oo)\_______
-                                                                (__)\       )\/\
-                                                                    ||----w |
-                                                                    ||     ||
-
 #### Using Git and the bootstrap script
 
 You can clone the repository wherever you want. The bootstrapper script will 
@@ -97,4 +83,4 @@ Thanks to…
 * [Tim Esselens](http://devel.datif.be/)
 * anyone who [contributed a patch](https://github.com/nvartolomei/dotfiles/graphs/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
 
-and so on recursively ^_^
+and so on recursively
