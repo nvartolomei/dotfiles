@@ -16,14 +16,12 @@ sudo scutil --set HostName "thorus"
 sudo scutil --set LocalHostName "thorus"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "thorus"
 
-# Set standby delay to 3 hours (this is perfect value for me)
-sudo pmset -a standbydelay 10800
-
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
 # Menu bar: hide the useless Time Machine and Volume icons
 defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Volume.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
+
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
@@ -81,6 +79,17 @@ sudo systemsetup -setrestartfreeze on
 
 # Disable notification center & remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+
+
+###############################################################################
+# Energy saver preferences                                                    #
+###############################################################################
+
+# Set standby delay to 3 hours on battery
+sudo pmset -b standbydelay 10800
+
+# Set standby delay to 24 hours on charger
+sudo pmset -c standbydelay 86400
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
