@@ -6,6 +6,7 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -91,6 +92,7 @@ sudo pmset -b standbydelay 10800
 # Set standby delay to 24 hours on charger
 sudo pmset -c standbydelay 86400
 
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
@@ -144,6 +146,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
@@ -163,6 +166,7 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
+
 
 ###############################################################################
 # Finder                                                                      #
@@ -254,6 +258,7 @@ chflags nohidden ~/Library
 file=/Applications/Dropbox.app/Contents/Resources/check.icns
 [ -e "$file" ] && mv -f "$file" "$file.bak"
 unset file
+
 
 ###############################################################################
 # Dock & hot corners                                                          #
@@ -364,6 +369,7 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
+
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
@@ -377,6 +383,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
 defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\\U21a9"
+
 
 ###############################################################################
 # Terminal                                                                    #
@@ -394,6 +401,7 @@ defaults write com.apple.terminal "Startup Window Settings" -string "Pro"
 #defaults write com.apple.terminal FocusFollowsMouse -bool true
 #defaults write org.x.X11 wm_ffm -bool true
 
+
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
@@ -403,6 +411,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
 hash tmutil &> /dev/null && sudo tmutil disablelocal
+
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -421,6 +430,7 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonit SortDirection -int 0
 
+
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
 ###############################################################################
@@ -428,6 +438,7 @@ defaults write com.apple.ActivityMonit SortDirection -int 0
 # Disable the all too sensitive backswipe
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+
 
 ###############################################################################
 # TextEdit, and Disk Utility                                                  #
@@ -442,6 +453,7 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
 
 ###############################################################################
 # Twitter.app                                                                 #
@@ -467,6 +479,7 @@ defaults write com.twitter.twitter-mac ShowFullNames -bool true
 
 # Hide the app in the background if it’s not the front-most window
 defaults write com.twitter.twitter-mac HideInBackground -bool true
+
 
 ###############################################################################
 # Kill affected applications                                                  #
