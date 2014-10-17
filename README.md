@@ -1,6 +1,6 @@
 #### Using Git and the bootstrap script
 
-You can clone the repository wherever you want. The bootstrapper script will 
+You can clone the repository wherever you want. The bootstrapper script will
 pull in the latest version and copy the files to your home folder. Please note
 that all existing files will be overwritten by `bootstrap.sh` script.
 
@@ -11,12 +11,14 @@ git clone https://github.com/nvartolomei/dotfiles.git --recursive && cd dotfiles
 To update, `cd` into your local `dotfiles` repository and then:
 
 ```bash
+git pull origin master && git submodule update --init
 script/bootstrap
 ```
 
 Alternatively, to update while avoiding the confirmation prompt:
 
 ```bash
+git pull origin master && git submodule update --init
 script/bootstrap -f
 ```
 
@@ -46,7 +48,7 @@ unset path_additions
 
 #### Add custom commands without creating a new fork
 
-If `~/.extra` exists, it will be sourced along with the other files. 
+If `~/.extra` exists, it will be sourced along with the other files.
 You can use this to add a few custom commands without the need to fork this
 entire repository, or to add commands you don’t want to commit to a public
 repository.
@@ -63,7 +65,7 @@ script/osx
 #### Homebrew common packages for developers
 
 ```bash
-script/homebrew
+script/brew
 ```
 
 #### ♥ Colophon
