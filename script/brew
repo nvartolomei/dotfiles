@@ -39,6 +39,7 @@ brew install ack
 brew install grep
 brew install less
 brew install pv
+brew install ansible
 
 # Remove outdated versions from the cellar
 brew cleanup
