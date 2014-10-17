@@ -18,7 +18,7 @@ sudo scutil --set LocalHostName "thorus"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "thorus"
 
 # Menu bar: hide the useless Time Machine and Volume icons
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Volume.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/VPN.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/TextInput.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
@@ -81,10 +81,10 @@ sudo systemsetup -setrestartfreeze on
 ###############################################################################
 
 # Set standby delay to 3 hours on battery
-sudo pmset -b standbydelay 10800
+# sudo pmset -b standbydelay 10800
 
 # Set standby delay to 24 hours on charger
-sudo pmset -c standbydelay 86400
+# sudo pmset -c standbydelay 86400
 
 
 ###############################################################################
@@ -384,7 +384,7 @@ defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\\U21a9"
 ###############################################################################
 
 # Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
+defaults write com.apple.terminal StringEncodings -array 4.
 
 # Use the Pro theme by default in Terminal.app
 defaults write com.apple.terminal "Default Window Settings" -string "Pro"
