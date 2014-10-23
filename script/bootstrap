@@ -20,8 +20,6 @@ do_sync() {
           --exclude "script/" --exclude "README.md"  \
           --exclude "spf13-vim"                      \
           -avq . ~
-
-    sh spf13-vim/bootstrap.sh
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
