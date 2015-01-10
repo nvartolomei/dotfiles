@@ -85,4 +85,4 @@ Thanks to…
 * [Tim Esselens](http://devel.datif.be/)
 * anyone who [contributed a patch](https://github.com/nvartolomei/dotfiles/graphs/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
 
-and so on recursively
+and so on tail recursively
