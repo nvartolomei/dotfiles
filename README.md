@@ -1,5 +1,7 @@
 #### Using Git and the bootstrap script
 
+##### Installing
+
 You can clone the repository wherever you want. The bootstrapper script will
 pull in the latest version and copy the files to your home folder. Please note
 that all existing files will be overwritten by `bootstrap.sh` script.
@@ -8,6 +10,8 @@ that all existing files will be overwritten by `bootstrap.sh` script.
 git clone https://github.com/nvartolomei/dotfiles.git --recursive && cd dotfiles && script/bootstrap
 ```
 
+##### Updating
+
 To update, `cd` into your local `dotfiles` repository and then:
 
 ```bash
@@ -15,14 +19,7 @@ git pull origin master && git submodule update --init
 script/bootstrap
 ```
 
-Alternatively, to update while avoiding the confirmation prompt:
-
-```bash
-git pull origin master && git submodule update --init
-script/bootstrap -f
-```
-
-To update later on, just run that command again.
+Use *force* `-f` flag for `script/bootstrap` to disable prompt.
 
 #### Specify the `$PATH`
 
