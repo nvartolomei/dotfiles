@@ -3,3 +3,11 @@
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+
+# Enable git command  autocompletion for 'g' as well
+if type _git > /dev/null 2>&1   ; then
+    complete -o default -o nospace -F _git g
+fi
+
+# Load rupa's z if installed
+[ -f "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
