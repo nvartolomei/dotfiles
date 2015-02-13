@@ -15,9 +15,12 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
-# If possible, add tab completion for many more commands
+# Homebrew related
 if command -v brew >/dev/null 2>&1; then
     [ -f "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
+
+    # Load rupa's z if installed
+    [ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
 fi
 
 # Fuckof for XOFF message for CTRL-S (use this for vim write istead)

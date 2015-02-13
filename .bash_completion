@@ -8,6 +8,3 @@
 if type _git > /dev/null 2>&1   ; then
     complete -o default -o nospace -F _git g
 fi
-
-# Load rupa's z if installed
-[ -f "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
