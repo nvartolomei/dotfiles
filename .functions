@@ -119,6 +119,5 @@ wifi-password() {
 	local pwd="`security find-generic-password -ga \"$ssid\" 2>&1 >/dev/null`"
 
 	# clean up password
-	pwd=$(echo "$pwd" | sed -e "s/^.*\"\(.*\)\".*$/\1/")
-	echo pwd
+	echo $pwd | sed -e "s/^.*\"\(.*\)\".*$/\1/"
 }
