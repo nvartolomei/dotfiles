@@ -17,7 +17,11 @@ shopt -s cdspell
 
 # Homebrew related
 if command -v brew >/dev/null 2>&1; then
-    [ -f "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
+    if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+        source "$(brew --prefix)/share/bash-completion/bash_completion";
+    elif [ -f /etc/bash_completion ]; then
+        source /etc/bash_completion;
+    fi;
 
     # Load rupa's z if installed
     [ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"

@@ -6,6 +6,9 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
+# Allow versioned formulae
+brew tap homebrew/versions
+
 # Install GNU core utilities (those that come with OS X are outdated)
 # Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH.
 brew install coreutils
@@ -17,12 +20,12 @@ brew install wget --enable-iri
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/less
 
-# Install completion (dotfiles completions need this)
-brew install bash-completion
-
 # Install latest version of bash shell
 # Don't forget to change shell to $(brew --prefix bash)/bin/bash.
 brew install bash
+
+# Install completion (dotfiles completions need this)
+brew install bash-completion2
 
 # Install everything else
 brew install git
