@@ -8,6 +8,17 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 ###############################################################################
+# Security & Privacy
+###############################################################################
+
+# Enable ALF, logging and "stealth mode"
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
+sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool false
+sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -bool true
+sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
+
+
+###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
