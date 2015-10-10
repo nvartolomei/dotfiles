@@ -1,0 +1,5 @@
+" Vim UI {
+
+    set nofoldenable " Disable auto code folding
+
+" }
