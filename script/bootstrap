@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")/../"
+cd "$(dirname "${BASH_SOURCE}")/../";
 
 now=$(date +%s)
 
@@ -20,6 +20,8 @@ do_sync() {
           --exclude "script/" --exclude "README.md"  \
           --exclude "spf13-vim"                      \
           -avq . ~
+
+    source ~/.bash_profile;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
@@ -40,5 +42,6 @@ unset do_sync
 unset do_backup
 unset now
 
-# Bash profile notice
-echo "Please restart Bash to see changes!"
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "Please restart Bash to see changes!"
+fi
