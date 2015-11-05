@@ -12,6 +12,8 @@ do_backup() {
     for file in *; do
         [ -f "$HOME/$file" ] && cp -r "$HOME/$file" "$HOME/.backups/$now/$file"
     done
+
+    shopt -s dotglob
 }
 
 do_sync() {
