@@ -34,6 +34,7 @@ path_additions=(
     "$(brew --prefix coreutils)/libexec/gnubin"
     "$(brew --prefix ruby)/bin"
 
+    "~/bin" # dotfiles scripts
     "$PATH"
 )
 
