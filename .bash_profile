@@ -24,7 +24,7 @@ if command -v brew >/dev/null 2>&1; then
     fi;
 
     # Load rupa's z if installed
-    [ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
+    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 fi
 
 # Fuckof for XOFF message for CTRL-S (use this for vim write istead)

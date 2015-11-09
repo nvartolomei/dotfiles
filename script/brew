@@ -36,7 +36,7 @@ brew install nmap
 brew install resty
 brew install tree
 brew install mtr
-brew install z
+brew install autojump
 brew install vim
 brew install tmux
 brew install the_silver_searcher
