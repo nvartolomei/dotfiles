@@ -24,6 +24,9 @@ brew install homebrew/dupes/less
 # Don't forget to change shell to $(brew --prefix bash)/bin/bash.
 brew install bash
 
+# Install fish shell, trying to transition to fish from bash
+brew install fish
+
 # Install completion (dotfiles completions need this)
 brew install bash-completion2
 
