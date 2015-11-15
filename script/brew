@@ -50,7 +50,7 @@ brew install pv
 brew install ansible
 brew install heroku-toolbelt
 
-brew install vagrant-completion
+brew install homebrew/completions/vagrant-completion
 
 # Remove outdated versions from the cellar
 brew cleanup
