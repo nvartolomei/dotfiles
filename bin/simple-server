@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Start an HTTP server from a directory, optionally specifying the port
+
+python - "${1:-8000}" <<EOF
+import os
+import sys
+import SimpleHTTPServer
+map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map
+map[""] = "text/plain"
+for key, value in map.items():
+    map[key] = value + ";charset=UTF-8"
+os.system("open http://localhost:" + sys.argv[1])
+SimpleHTTPServer.test()
+EOF
