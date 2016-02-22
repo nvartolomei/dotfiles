@@ -118,6 +118,8 @@
 [pager]
 	# Use colors when paging regardless of default color setting.
 	color = true
+	diff = "diff-so-fancy | less --tabs=1,5 -RFX"
+	show = "diff-so-fancy | less --tabs=1,5 -RFX"
 
 [push]
 	# See `git help config` and search for "push.default"
