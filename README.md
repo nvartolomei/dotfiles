@@ -51,13 +51,13 @@ You can use this to add a few custom commands without the need to fork this
 entire repository, or to add commands you don’t want to commit to a public
 repository.
 
-#### Sensible OS X defaults
+#### Sensible macOS defaults
 
-When setting up a new Mac, you may want to set some sensible OS X defaults,
-but don't forget to take a look at `script/osx` file before applying them and bang:
+When setting up a new Mac, you may want to set some sensible macOS defaults,
+but don't forget to take a look at `script/macos` file before applying them and bang:
 
 ```bash
-script/osx
+script/macos
 ```
 
 #### Homebrew common packages for developers
