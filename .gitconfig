@@ -44,6 +44,12 @@
 	# Undo a `git push`
 	undopush = push -f origin HEAD^:master
 
+	# Force push only if if the current value of the remote ref is the expected value
+	please = push --force-with-lease
+
+	# :)
+	commend = commit --amend --no-edit
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
