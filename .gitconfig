@@ -47,6 +47,10 @@
 	# :)
 	commend = commit --amend --no-edit
 
+	# Publish the current branch by pushing it to the remote "origin",
+	# and setting the current branch to track the upstream branch.
+	publish = !"git push --set-upstream origin $(git branch-name)"
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
