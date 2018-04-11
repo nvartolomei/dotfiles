@@ -44,7 +44,6 @@ brew install autojump
 brew install vim
 brew install tmux
 brew install the_silver_searcher
-brew install ack
 brew install grep
 brew install less
 brew install pv
