@@ -13,7 +13,7 @@
 	s = status --short --branch
 
 	# Diff
-	d = diff --patch-with-stat
+	d = diff --patch-with-stat --color-moved=dimmed_zebra
 
 	# Pull remote change
 	ll = pull
