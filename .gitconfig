@@ -135,6 +135,13 @@
 	# If you use branches with different remote name, use "upstream"
 	default = simple
 
+[pull]
+	# By default, Git does not create an extra merge commit when
+	# merging a commit that is a descendant of the current commit.
+	# Instead, the tip of the current branch is fast-forwarded.
+	# When set to only, only such fast-forward merges are allowed.
+	ff = only
+
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
