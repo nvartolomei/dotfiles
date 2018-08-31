@@ -50,6 +50,7 @@ brew install pv
 brew install ansible
 brew install heroku-toolbelt
 brew install diff-so-fancy
+brew install bat
 
 brew install homebrew/completions/vagrant-completion
 
