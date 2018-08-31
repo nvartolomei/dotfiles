@@ -41,7 +41,7 @@ brew install resty
 brew install tree
 brew install mtr
 brew install autojump
-brew install vim
+brew install vim --with-luajit
 brew install tmux
 brew install the_silver_searcher
 brew install grep
