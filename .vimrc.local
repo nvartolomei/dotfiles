@@ -4,4 +4,6 @@
 
     hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
 
+    " Make double-<Esc> clear search highlights
+    nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
 " }
