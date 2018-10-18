@@ -2,4 +2,6 @@
 
     set nofoldenable " Disable auto code folding
 
+    hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+
 " }
