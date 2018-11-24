@@ -15,17 +15,13 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
-# Homebrew related
-if command -v brew >/dev/null 2>&1; then
-    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-        source $(brew --prefix)/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        source /etc/bash_completion;
-    fi;
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    source /usr/local/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+fi;
 
-    # Load rupa's z if installed
-    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-fi
+[[ -s /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
 
 # Fuckof for XOFF message for CTRL-S (use this for vim write istead)
 bind -r '\C-s'
