@@ -51,6 +51,8 @@
 	# and setting the current branch to track the upstream branch.
 	publish = !"git push --set-upstream origin $(git branch-name)"
 
+    recent = !"git branch -v --sort=-committerdate"
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
