@@ -26,17 +26,11 @@ set undolevels=1000
 " Maximum number lines to save for undo on a buffer reload
 set undoreload=10000
 
-" Custom folders
-set backupdir=$HOME/.vim/backup
-set directory=$HOME/.vim/swap
-set undodir=$HOME/.vim/undo
-
 " Use filetype detection and file-based automatic indenting.
 filetype plugin indent on
 
 " Use actual tab chars in Makefiles.
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-
 
 " For everything else, use a tab width of 4 space chars.
 set tabstop=4       " The width of a TAB is set to 4.
@@ -153,3 +147,31 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
+" Initialize directories.
+function! InitializeDirectories()
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory',
+                \ 'undo': 'undodir' }
+
+    let prefix = $HOME . '/.vimdirs/'
+    if !isdirectory(prefix)
+        call mkdir(prefix)
+    endif
+
+    for [dirname, settingname] in items(dir_list)
+        let directory = prefix . dirname . '/'
+        if !isdirectory(directory)
+            call mkdir(directory)
+        endif
+        if !isdirectory(directory)
+            echo "Warning: Unable to create backup directory: " . directory
+            echo "Try: mkdir -p " . directory
+        else
+            let directory = substitute(directory, " ", "\\\\ ", "g")
+            exec "set " . settingname . "=" . directory
+        endif
+    endfor
+endfunction
+call InitializeDirectories()
