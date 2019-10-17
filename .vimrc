@@ -32,6 +32,10 @@ filetype plugin indent on
 " Use actual tab chars in Makefiles.
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 
+" Instead of reverting the cursor to the last position in the buffer, we
+" set it to the first line when editing a git commit message
+autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
 " For everything else, use a tab width of 4 space chars.
 set tabstop=4       " The width of a TAB is set to 4.
                     " Still it is a \t. It is just that
