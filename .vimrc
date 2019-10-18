@@ -11,8 +11,13 @@ silent! while 0
   set nocompatible
 silent! endwhile
 
+" Highlight search matches
+set hlsearch
+
 " Make double-<Esc> clear search highlights
-nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
+" https://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizarre-arrow-behaviour/20458579#20458579
+nnoremap <silent><esc> :nohlsearch<return><esc>
+nnoremap <esc>^[ <esc>^[
 
 " Backups are nice
 set backup
