@@ -21,6 +21,12 @@ source script/bootstrap
 
 Use *force* `-f` flag for `script/bootstrap` to disable prompt.
 
+##### Vim
+
+```bash
+vim -c PlugInstall
+```
+
 #### Specify the `$PATH`
 
 If `~/.path` exists, it will be sourced along with the other files, before any feature testing takes place.
