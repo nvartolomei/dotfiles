@@ -144,6 +144,10 @@
 	# When set to only, only such fast-forward merges are allowed.
 	ff = only
 
+	# Rebase the current branch on top of the upstream branch after fetching.
+	# See https://git-scm.com/docs/git-pull#Documentation/git-pull.txt---rebasefalsetruemergespreserveinteractive
+	rebase = true
+
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
@@ -197,3 +201,8 @@
 # gist: is a shofthand for git://gist.github.com/
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
+
+[rebase]
+	# Allow running rebase on a dirty worktree.
+	# See https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autostash
+	autoStash = true
