@@ -100,7 +100,7 @@ function prompt_git() {
     printf " on ${YELLOW}git:${git_info}"
 }
 
-export PS1="\[${BOLD}${WHITE}\] λ \[${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\${PWD/#\$HOME/~}\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
+export PS1="\[${BOLD}${WHITE}\] λ \[$(tput setaf 21)\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\${PWD/#\$HOME/~}\[$WHITE\]\$(prompt_git)\[$WHITE\]\n → \[$RESET\]"
 
 export PS2="\[$ORANGE\] → \[$RESET\]"
 
