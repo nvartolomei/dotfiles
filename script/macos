@@ -86,6 +86,12 @@ sudo systemsetup -setrestartfreeze on
 # Disable notification center & remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 
+# Revert application title bars to pre Big Sur style
+# https://twitter.com/nvartolomei/status/1338857263230930944
+# https://apple.stackexchange.com/a/408488
+# Available per-app `defaults write com.apple.finder NSWindowSupportsAutomaticInlineTitle -bool false`
+defaults write -g NSWindowSupportsAutomaticInlineTitle -bool false
+
 
 ###############################################################################
 # Energy saver preferences                                                    #
