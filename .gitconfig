@@ -57,8 +57,11 @@
 	# "Reset Workspace".
 	rw = !"git checkout master && git pull && git cleanup"
 
-	# Recently worked on branches.
-	recent = !"git branch -v --sort=-committerdate"
+	# Switch to recently worked on branches.
+	sw = "!f() { git checkout $(git branch -v --sort=-committerdate | fzf | awk '{print $1}'); }; f"
+
+	# Pick commit to rebase.
+	rb = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
 
 [apply]
 	# Detect whitespace errors when applying a patch
