@@ -110,6 +110,12 @@
 	# Use --prompt to override.
 	prompt = false
 
+[difftool "idea"]
+    cmd = idea merge $LOCAL $REMOTE --wait
+
+[difftool "clion"]
+    cmd = clion merge $LOCAL $REMOTE --wait
+
 [help]
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
@@ -128,6 +134,14 @@
 	# Mergetool will not prompt for every file.
 	# Use --prompt to override.
 	prompt = false
+
+[mergetool "idea"]
+    cmd = idea merge $LOCAL $REMOTE $BASE $MERGED --wait
+    trustExitCode = true
+
+[mergetool "clion"]
+    cmd = clion merge $LOCAL $REMOTE $BASE $MERGED --wait
+    trustExitCode = true
 
 [pager]
 	# Use colors when paging regardless of default color setting.
