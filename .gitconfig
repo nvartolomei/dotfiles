@@ -57,10 +57,10 @@
 	# "Reset Workspace".
 	rw = !"git checkout master && git pull && git cleanup"
 
-	# Switch to recently worked on branches.
-	sw = "!f() { git checkout $(git branch -v --sort=-committerdate | fzf | awk '{print $1}'); }; f"
+	# Recently worked on branches.
+	sw = "!f() { git checkout $(git branch -v --sort=-committerdate --color=always | fzf --ansi | awk '{print $1}'); }; f"
 
-	# Pick commit to rebase.
+	# Allows you to easily pick what to rebase
 	rb = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
 
 [apply]
