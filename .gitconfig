@@ -7,7 +7,7 @@
 	contributors = shortlog --summary --numbered
 
 	# View the SHA, description, and history graph of the latest 20 commits
-	l = log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(blue)(%cr @ %an)%Creset' --abbrev-commit --date=relative
+	l = log --graph --pretty=format:'%C(yellow)%h%d%Creset %s %C(blue)(%cr @ %an)%Creset' --abbrev-commit --date=relative
 
 	# View the current working tree status using the short format
 	s = status --short --branch
