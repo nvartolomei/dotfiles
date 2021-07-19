@@ -51,11 +51,11 @@
 	# and setting the current branch to track the upstream branch.
 	publish = !"git push --set-upstream origin $(git branch-name)"
 
-	# Delete merged branches, except common ones (master, develop).
-	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+	# Delete merged branches, except common ones (main, master, develop).
+	cleanup = "!git branch --merged $(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | grep  -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
 
 	# "Reset Workspace".
-	rw = !"git checkout master && git pull && git cleanup"
+	rw = !"git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p') && git pull && git cleanup"
 
 	# Recently worked on branches.
 	sw = "!f() { git checkout $(git branch -v --sort=-committerdate --color=always | fzf --ansi | awk '{print $1}'); }; f"
