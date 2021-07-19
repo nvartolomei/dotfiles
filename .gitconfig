@@ -111,10 +111,10 @@
 	prompt = false
 
 [difftool "idea"]
-    cmd = idea merge $LOCAL $REMOTE --wait
+	cmd = idea diff $LOCAL $REMOTE --wait
 
 [difftool "clion"]
-    cmd = clion merge $LOCAL $REMOTE --wait
+	cmd = clion diff $LOCAL $REMOTE --wait
 
 [help]
 	# Automatically correct and execute mistyped commands
