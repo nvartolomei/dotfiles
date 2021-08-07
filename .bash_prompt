@@ -117,7 +117,7 @@ ps4_parts=(
     "${MAGENTA}${BOLD}"
 
     # Show the name of the current shell function, if any.
-    '${FUNCNAME}'
+    '${FUNCNAME:-}'
 
     # Show the basename and line number of the source file or function, if
     # any. If there was a function name, put an "@" between the function name
