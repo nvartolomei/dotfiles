@@ -2,6 +2,9 @@
 # Global configuration file for Git.
 ####################################
 
+[init]
+    defaultBranch = main
+
 [alias]
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
