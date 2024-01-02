@@ -105,6 +105,10 @@
 	# See`git help config` and search for "diff.tool"
 	tool=opendiff
 
+	# https://matklad.github.io/2023/12/31/git-things.html
+	colormoved = "default"
+	colormovedws = "allow-indentation-change"
+
 [difftool]
 	# Difftool will not prompt for every file.
 	# Use --prompt to override.
