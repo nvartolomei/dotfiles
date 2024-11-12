@@ -25,7 +25,7 @@ do_sync() {
     source ~/.bash_profile;
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
+if [ "$1" == "--force" -o "$1" == "-f" -o "$CODESPACES" == "true" ]; then
     do_sync
 else
     echo "This may overwrite existing files in your home directory,"
