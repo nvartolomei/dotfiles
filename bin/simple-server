@@ -5,11 +5,11 @@
 python - "${1:-8000}" <<EOF
 import os
 import sys
-import SimpleHTTPServer
-map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map
+import http.server
+map = http.server.SimpleHTTPRequestHandler.extensions_map
 map[""] = "text/plain"
-for key, value in map.items():
+for key, value in list(map.items()):
     map[key] = value + ";charset=UTF-8"
 os.system("open http://localhost:" + sys.argv[1])
-SimpleHTTPServer.test()
+http.server.test(http.server.SimpleHTTPRequestHandler, port=sys.argv[1])
 EOF
