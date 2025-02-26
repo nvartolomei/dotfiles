@@ -92,7 +92,11 @@
 	# Use more time to create better diffs.
 	# E.g. matching opening/closing braces from neighbour functions.
 	# See "`git help diff` --patience" and "`git help merge` recursive".
-	algorithm = patience
+	# algorithm = patience
+	# Note: testing histogram for now, see
+	#   - https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+	#   - https://blog.gitbutler.com/how-git-core-devs-configure-git/#better-diff
+	algorithm = histogram
 
 	# Diff will detect both renames and copies.
 	renames = copies
@@ -108,6 +112,13 @@
 	# https://matklad.github.io/2023/12/31/git-things.html
 	colormoved = "default"
 	colormovedws = "allow-indentation-change"
+
+	# Use a prefix pair that is different from the standard `a/` and `b/`
+	# depending on what is being compared. Examples:
+	#   - git diff - compares the (i)ndex and the (w)ork tree;
+	#   - git diff HEAD - compares a (c)ommit and the (w)ork tree;
+	#   - git diff HEAD:<file1> <file2> - compares an (o)bject and a (w)ork tree entity;
+	mnemonicPrefix = true
 
 [difftool]
 	# Difftool will not prompt for every file.
@@ -130,6 +141,9 @@
 
 	# opendiff opens FileMerge
 	tool = opendiff
+
+	# https://blog.gitbutler.com/how-git-core-devs-configure-git/#better-merge-conflicts
+	conflictstyle = zdiff3
 
 [mergetool]
 	# No *.orig files left when using mergetool.
@@ -159,6 +173,8 @@
 	# Setting to Git 2.0 default to surpress warning message
 	# If you use branches with different remote name, use "upstream"
 	default = simple
+
+	autoSetupRemote = true
 
 [pull]
 	# By default, Git does not create an extra merge commit when
@@ -201,6 +217,9 @@
 	header = white dim
 	untracked = cyan
 
+[commit]
+	verbose = true
+
 # URL shorthands
 #
 # See `git help config` and search for "url.<base>"
@@ -229,5 +248,13 @@
 	# Allow running rebase on a dirty worktree.
 	# See https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autostash
 	autoStash = true
+
 [init]
 	defaultBranch = main
+
+[tag]
+	sort = -version:refname
+
+# https://git-scm.com/book/en/v2/Git-Tools-Rerere
+[rerere]
+	enable = true
