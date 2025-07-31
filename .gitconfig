@@ -52,16 +52,18 @@
 	publish = !"git push --set-upstream origin $(git branch-name)"
 
 	# Delete merged branches, except common ones (main, master, develop).
-	cleanup = "!git branch --merged $(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | grep  -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
+	cleanup = "!git branch --merged $(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | grep  -v '\\*\\|main\\|master\\|develop\\|dev' | xargs -n 1 git branch -d"
 
 	# "Reset Workspace".
 	rw = !"git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p') && git pull && git cleanup"
 
 	# Recently worked on branches.
-	sw = "!f() { git checkout $(git branch -v --sort=-committerdate --color=always | fzf --ansi | awk '{print $1}'); }; f"
+	# If arguments are provided, pass them to `git checkout`.
+	# If no arguments are provided, use fzf to select a branch.
+	sw = "!f() { if [ $# -gt 0 ]; then git checkout \"$@\"; else git checkout $(git branch -v --sort=-committerdate --color=always | fzf --ansi | awk '{print $1}'); fi; }; f"
 
 	# Allows you to easily pick what to rebase
-	rb = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
+	rb = "!f() { git rebase --rebase-merges --autosquash -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
 
 [apply]
 	# Detect whitespace errors when applying a patch
@@ -152,14 +154,6 @@
 	# Mergetool will not prompt for every file.
 	# Use --prompt to override.
 	prompt = false
-
-[mergetool "idea"]
-    cmd = idea merge $LOCAL $REMOTE $BASE $MERGED --wait
-    trustExitCode = true
-
-[mergetool "clion"]
-    cmd = clion merge $LOCAL $REMOTE $BASE $MERGED --wait
-    trustExitCode = true
 
 [pager]
 	# Use colors when paging regardless of default color setting.
@@ -258,3 +252,6 @@
 # https://git-scm.com/book/en/v2/Git-Tools-Rerere
 [rerere]
 	enable = true
+
+[diff-so-fancy]
+	stripLeadingSymbols = false
