@@ -72,10 +72,6 @@ script/macos
 script/brew
 ```
 
-#### ♥ Colophon
+#### Credits
 
-Thanks to…
-
-* [Mathias Bynens](http://mathiasbynens.be/) for [upstream](https://github.com/mathiasbynens/dotfiles)
-
-and follow on tail recursively
+Originally forked from [Mathias Bynens' dotfiles](https://github.com/mathiasbynens/dotfiles).
