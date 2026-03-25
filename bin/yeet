@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $(basename "$0") <PR_URL or NUMBER> [REPO]"
+  echo
+  echo "Approves a PR and enables auto-merge."
+  echo
+  echo "Examples:"
+  echo "  $(basename "$0") 123                        # uses current repo"
+  echo "  $(basename "$0") 123 owner/repo"
+  echo "  $(basename "$0") https://github.com/owner/repo/pull/123"
+  exit 1
+}
+
+[[ $# -lt 1 || "$1" == "--help" || "$1" == "-h" ]] && usage
+
+PR_INPUT="$1"
+REPO="${2:-}"
+
+if [[ "$PR_INPUT" =~ ^https://github\.com/([^/]+/[^/]+)/pull/([0-9]+) ]]; then
+  REPO="${BASH_REMATCH[1]}"
+  PR_NUMBER="${BASH_REMATCH[2]}"
+elif [[ "$PR_INPUT" =~ ^[0-9]+$ ]]; then
+  PR_NUMBER="$PR_INPUT"
+else
+  echo "Error: invalid PR reference '$PR_INPUT'" >&2
+  exit 1
+fi
+
+REPO_FLAG=()
+if [[ -n "$REPO" ]]; then
+  REPO_FLAG=(-R "$REPO")
+fi
+
+echo "Approving PR #${PR_NUMBER}..."
+gh pr review "${PR_NUMBER}" "${REPO_FLAG[@]}" --approve
+
+echo "Enabling auto-merge..."
+gh pr merge "${PR_NUMBER}" "${REPO_FLAG[@]}" --auto --merge
+
+echo "Done. PR #${PR_NUMBER} approved and auto-merge enabled."
