@@ -33,8 +33,17 @@ if [[ -n "$REPO" ]]; then
   REPO_FLAG=(-R "$REPO")
 fi
 
-echo "Approving PR #${PR_NUMBER}..."
-gh pr review "${PR_NUMBER}" "${REPO_FLAG[@]}" --approve
+ME=$(gh api user --jq .login)
+ALREADY_APPROVED=$(gh pr view "${PR_NUMBER}" "${REPO_FLAG[@]}" --json reviews \
+  --jq "[.reviews[] | select(.state == \"APPROVED\" and .author.login == \"$ME\")] | length")
+
+if [[ "$ALREADY_APPROVED" -gt 0 ]]; then
+  echo "Already approved — skipping."
+else
+  echo "Approving PR #${PR_NUMBER}..."
+  gh pr review "${PR_NUMBER}" "${REPO_FLAG[@]}" --approve ||
+    echo "Approval skipped (you may be the PR author)."
+fi
 
 echo "Enabling auto-merge..."
 gh pr merge "${PR_NUMBER}" "${REPO_FLAG[@]}" --auto --merge
