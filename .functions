@@ -1,3 +1,18 @@
+# git, except `g sw` with no arguments runs the fuzzy branch switcher
+# (bin/git-sw) and cds into the branch's worktree when it lives in one —
+# a git alias runs in a subprocess and cannot cd this shell.
+g() {
+	if [ "${1-}" = "sw" ] && [ $# -eq 1 ]; then
+		local dest
+		dest=$(git-sw) || return
+		if [ -n "$dest" ]; then
+			cd "$dest"
+		fi
+	else
+		git "$@"
+	fi
+}
+
 # Create a new directory and enter it
 md() {
 	mkdir -p "$@" && cd "$@"

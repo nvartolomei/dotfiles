@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+#
+# git sw — switch between recently worked on branches.
+#
+# With arguments: plain `git checkout <args>`.
+# Without: fzf over branches sorted by last commit date.
+#
+#   enter   checkout; if the branch is checked out in another worktree,
+#           go to that worktree instead
+#   ctrl-b  start a new branch off the selected one
+#   ctrl-w  new worktree from the selected branch; if the branch is already
+#           checked out somewhere, the worktree starts a new branch off it
+#   ctrl-l  toggle the log preview
+#
+# A subprocess cannot cd the invoking shell, so "go there" prints the target
+# directory to stdout (everything else goes to stderr); the g() function in
+# ~/.functions captures it and does the cd. Run standalone, it prints the
+# commands to run instead.
+
+set -euo pipefail
+
+die() {
+	echo "$*" >&2
+	exit 1
+}
+
+# Print a directory for the caller to cd into (stdout captured by g()),
+# or the equivalent command when running standalone.
+goto() {
+	if [ -t 1 ]; then
+		echo "  cd $1"
+	else
+		printf '%s\n' "$1"
+	fi
+}
+
+jump_or_explain() {
+	local dir=$1 branch=$2
+	if [ -t 1 ]; then
+		echo "'$branch' is checked out at $dir:"
+		goto "$dir"
+		echo "or work on it here under a new name:"
+		echo "  git checkout -b <new-name> $branch"
+	else
+		echo "'$branch' is checked out at $dir, going there" >&2
+		goto "$dir"
+	fi
+}
+
+new_branch_off() {
+	local branch=$1 name
+	read -r -e -p "new branch off '$branch': " name </dev/tty
+	[ -n "$name" ] || die "no name given"
+	git checkout -b "$name" "$branch" >&2
+}
+
+# A free branch is checked out in the new worktree directly; a busy one
+# (checked out here or in another worktree) gets a new branch off it.
+new_worktree() {
+	local branch=$1 busy=$2 main name suggestion path
+	name=$branch
+	if [ -n "$busy" ]; then
+		read -r -e -p "'$branch' is checked out at $busy; new branch off it: " name </dev/tty
+		[ -n "$name" ] || die "no name given"
+	fi
+	main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+	suggestion="$main-${name//\//-}"
+	read -r -e -p "worktree path [$suggestion]: " path </dev/tty
+	path=${path:-$suggestion}
+	if [ -n "$busy" ]; then
+		git worktree add -b "$name" "$path" "$branch" >&2
+	else
+		git worktree add "$path" "$branch" >&2
+	fi
+	goto "$path"
+}
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "$PWD is not a git repo!"
+
+if [ $# -gt 0 ]; then
+	exec git checkout "$@"
+fi
+
+# Tab-separated machine fields (branch, worktree path), then the display part.
+fmt='%(refname:short)%09%(worktreepath)%09'
+fmt+='%(if)%(HEAD)%(then)%(color:yellow reverse)%(else)%(color:yellow)%(end)%(refname:short)%(color:reset) '
+fmt+='%(color:blue)%(committerdate:relative)%(color:reset) '
+fmt+='%(contents:subject)'
+fmt+='%(if)%(worktreepath)%(then) %(color:cyan)[%(worktreepath)]%(color:reset)%(end)'
+
+branches=$(git branch --color=always --sort=-committerdate --format="$fmt")
+[ -n "$branches" ] || die "no branches"
+
+out=$(fzf --ansi --delimiter='\t' --with-nth='3..' --tiebreak=index \
+	--prompt='switch> ' \
+	--header='enter checkout/jump · ctrl-b new branch · ctrl-w new worktree · ctrl-l log' \
+	--expect=ctrl-b,ctrl-w \
+	--bind='ctrl-l:toggle-preview' \
+	--preview-window='right,55%' \
+	--preview='git log --graph --color=always --abbrev-commit --pretty=format:"%C(yellow)%h%d%Creset %s %C(blue)(%cr @ %an)%Creset" -100 {1} --' \
+	<<<"$branches")
+
+key=${out%%$'\n'*}
+line=${out#*$'\n'}
+branch=${line%%$'\t'*}
+rest=${line#*$'\t'}
+wtpath=${rest%%$'\t'*}
+
+case "$key" in
+ctrl-b)
+	new_branch_off "$branch"
+	;;
+ctrl-w)
+	new_worktree "$branch" "$wtpath"
+	;;
+*)
+	if [ -z "$wtpath" ]; then
+		git checkout "$branch" >&2
+	elif [ "$wtpath" = "$(git rev-parse --show-toplevel)" ]; then
+		echo "already on '$branch'" >&2
+	else
+		jump_or_explain "$wtpath" "$branch"
+	fi
+	;;
+esac
