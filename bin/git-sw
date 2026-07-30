@@ -114,7 +114,7 @@ out=$(fzf --ansi --delimiter='\t' --with-nth='3..' --tiebreak=index \
 	--header='enter checkout/jump · ctrl-b new branch · ctrl-w new worktree · ctrl-l log' \
 	--expect=ctrl-b,ctrl-w \
 	--bind='ctrl-l:toggle-preview' \
-	--preview-window='right,55%' \
+	--preview-window='right,55%,<100(up,50%)' \
 	--preview='git log --graph --color=always --abbrev-commit --pretty=format:"%C(yellow)%h%d%Creset %s %C(blue)(%cr @ %an)%Creset" -100 {1} --' \
 	<<<"$branches")
 
