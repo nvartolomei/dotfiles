@@ -250,3 +250,11 @@
 
 [diff-so-fancy]
 	stripLeadingSymbols = false
+
+# Machine-local settings (user.name, user.email, credentials, overrides).
+# Not tracked here, so bootstrap never touches it; set values with
+#   git config --file ~/.gitconfig.local <key> <value>
+# Keep this include last: its values override everything above, and keys
+# it does not set fall back to the defaults in this file.
+[include]
+	path = ~/.gitconfig.local
