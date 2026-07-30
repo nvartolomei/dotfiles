@@ -20,6 +20,7 @@ do_sync() {
     rsync --exclude ".git/" --exclude ".gitmodules"  \
           --exclude ".DS_Store" --exclude "Brewfile" \
           --exclude "script/" --exclude "README.md"  \
+          --exclude "test/" --exclude "Makefile"     \
           -avq . ~
 
     source ~/.bash_profile;
