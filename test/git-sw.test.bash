@@ -61,6 +61,9 @@ git -C "$repo" branch free1
 git -C "$repo" branch wt-free
 git -C "$repo" branch busy
 git -C "$repo" worktree add "$tmp/demo-busy" busy >/dev/null 2>&1
+git -C "$repo" branch gone
+git -C "$repo" worktree add "$tmp/demo-gone" gone >/dev/null 2>&1
+rm -rf "$tmp/demo-gone"
 git init -q --bare "$tmp/origin.git"
 git -C "$repo" remote add origin "$tmp/origin.git"
 git -C "$repo" branch tracked
@@ -135,6 +138,20 @@ else
 		printf 'offbusy\n\n' | run_pty 'FAKE_PICK=busy FAKE_KEY=ctrl-w git-sw' >/dev/null)
 	assert_eq "ctrl-w on a busy branch starts a new branch in the worktree" \
 		offbusy "$(git -C "$tmp/demo-offbusy" branch --show-current 2>/dev/null)"
+
+	# a worktree deleted on disk but still registered offers to recreate;
+	# declining leaves it alone and prints the remedies
+	out=$(cd "$repo" && printf 'n\n' | run_pty 'FAKE_PICK=gone FAKE_KEY= git-sw')
+	assert_contains "declined recreate suggests worktree prune" \
+		"git worktree prune" "$out"
+	assert_eq "declined recreate does not create the directory" \
+		"missing" "$([ -d "$tmp/demo-gone" ] && echo present || echo missing)"
+
+	out=$(cd "$repo" && printf 'y\n' | run_pty 'FAKE_PICK=gone FAKE_KEY= git-sw')
+	assert_contains "accepted recreate prints the cd command" \
+		"cd $tmp/demo-gone" "$out"
+	assert_eq "accepted recreate restores the worktree" \
+		gone "$(git -C "$tmp/demo-gone" branch --show-current 2>/dev/null)"
 fi
 
 echo "$pass passed, $fail failed, $skip skipped"

@@ -6,7 +6,8 @@
 # Without: fzf over branches sorted by last commit date.
 #
 #   enter   checkout; if the branch is checked out in another worktree,
-#           go to that worktree instead
+#           go to that worktree instead (offering to recreate it when its
+#           directory was deleted but is still registered)
 #   ctrl-b  start a new branch off the selected one
 #   ctrl-w  new worktree from the selected branch; if the branch is already
 #           checked out somewhere, the worktree starts a new branch off it
@@ -45,6 +46,23 @@ jump_or_explain() {
 		echo "'$branch' is checked out at $dir, going there" >&2
 		goto "$dir"
 	fi
+}
+
+# The branch's registered worktree no longer exists on disk; -f lets
+# `worktree add` reuse the stale registration.
+recreate_worktree() {
+	local branch=$1 path=$2 reply
+	read -r -p "worktree $path is gone; recreate it? [y/N] " reply </dev/tty
+	case "$reply" in
+	[Yy]*)
+		git worktree add -f "$path" "$branch" >&2
+		goto "$path"
+		;;
+	*)
+		echo "to drop the stale entry: git worktree prune" >&2
+		echo "to work on it here: git checkout -b <new-name> $branch" >&2
+		;;
+	esac
 }
 
 new_branch_off() {
@@ -111,13 +129,19 @@ ctrl-b)
 	new_branch_off "$branch"
 	;;
 ctrl-w)
-	new_worktree "$branch" "$wtpath"
+	if [ -n "$wtpath" ] && [ ! -d "$wtpath" ]; then
+		recreate_worktree "$branch" "$wtpath"
+	else
+		new_worktree "$branch" "$wtpath"
+	fi
 	;;
 *)
 	if [ -z "$wtpath" ]; then
 		git checkout "$branch" >&2
 	elif [ "$wtpath" = "$(git rev-parse --show-toplevel)" ]; then
 		echo "already on '$branch'" >&2
+	elif [ ! -d "$wtpath" ]; then
+		recreate_worktree "$branch" "$wtpath"
 	else
 		jump_or_explain "$wtpath" "$branch"
 	fi
