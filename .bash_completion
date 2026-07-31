@@ -1,8 +1,26 @@
 # Userland defined completion for bash
 # Loaded by `bash-completion` package
 
+# All Host names from ~/.ssh/config, following Include directives (relative
+# paths and globs resolve to ~/.ssh), ignoring wildcard and negated patterns.
+_ssh_config_hosts() {
+    local -a files=(~/.ssh/config)
+    local i=0 g
+    while [ "$i" -lt "${#files[@]}" ] && [ "${#files[@]}" -lt 64 ]; do
+        if [ -r "${files[i]}" ]; then
+            while read -r g; do
+                g=${g/#\~/$HOME}
+                [[ $g == /* ]] || g=$HOME/.ssh/$g
+                files+=($g)
+            done < <(awk 'tolower($1) == "include" { for (i = 2; i <= NF; i++) print $i }' "${files[i]}")
+        fi
+        i=$((i + 1))
+    done
+    awk 'tolower($1) == "host" { for (i = 2; i <= NF; i++) if ($i !~ /[*?!]/) print $i }' "${files[@]}" 2>/dev/null | sort -u
+}
+
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+complete -o "default" -o "nospace" -W "$(_ssh_config_hosts)" scp sftp ssh
 
 # Enable git command autocompletion for 'g' as well.
 # The bash-completion package loads git's rules lazily on the first
@@ -21,3 +39,26 @@ fi
 _git_sw() {
     __git_complete_refs
 }
+
+# ressh: complete ssh hosts, then template names. Profile symlinks to ressh
+# (e.g. nowdev) take no host argument, so their positions shift by one.
+_ressh_templates() {
+    ( config=${RESSH_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/ressh/config}
+      [ ! -f "$config" ] || . "$config"
+      compgen -A variable template_ | sed 's/^template_/@/' )
+}
+
+_ressh() {
+    local cur=${COMP_WORDS[COMP_CWORD]} pos=$COMP_CWORD
+    [ "${COMP_WORDS[0]##*/}" != ressh ] && pos=$((pos + 1))
+    case $pos in
+    1) COMPREPLY=($(compgen -W "$(_ssh_config_hosts)" -- "$cur")) ;;
+    2) COMPREPLY=($(compgen -W "$(_ressh_templates)" -- "$cur")) ;;
+    esac
+}
+
+complete -F _ressh ressh
+for _cmd in ~/bin/*; do
+    [ "$(readlink "$_cmd" 2>/dev/null)" = ressh ] && complete -F _ressh "${_cmd##*/}"
+done
+unset _cmd
