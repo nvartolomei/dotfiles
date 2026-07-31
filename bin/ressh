@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+#
+# ressh — ssh that reconnects when the connection drops, with remote-command
+# templates.
+#
+#   ressh <host> [template [args...]]
+#
+# Profiles are plain ssh_config Host entries; a symlink to this script named
+# after a host becomes a dedicated command for it:
+#
+#   ln -s ressh ~/bin/nowdev
+#   nowdev tmux main          # ssh nowdev 'tmux -CC new-session -A -s main'
+#   nowdev                    # plain interactive ssh, still auto-reconnecting
+#
+# Templates live in ~/.config/ressh/config (sourced bash). Each is a printf
+# format the template args are applied to; %q quotes an arg for the remote
+# shell, %s inserts it raw:
+#
+#   template_tmux='tmux -CC new-session -A -s %q'
+#
+# Reconnects only on ssh exit 255 (connection error); a clean exit or the
+# remote command's own status ends the loop. A first attempt that dies
+# within $gate_time seconds never connected (bad host, auth failure) and is
+# not retried.
+
+set -euo pipefail
+
+prog=ressh
+
+die() {
+	echo "$prog: $*" >&2
+	exit 1
+}
+
+# Defaults; the config file may override any of these.
+ssh_opts=(-o ServerAliveInterval=5 -o ServerAliveCountMax=3)
+gate_time=5     # first attempt dying this fast is an error, not a drop
+max_delay=15    # cap on the retry backoff, seconds
+stable_after=30 # a session that lived this long resets the backoff
+
+config=${RESSH_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/ressh/config}
+[ ! -f "$config" ] || . "$config"
+
+self=${0##*/}
+if [ "$self" = "$prog" ]; then
+	[ $# -ge 1 ] || die "usage: $prog <host> [template [args...]]"
+	host=$1
+	shift
+else
+	host=$self
+fi
+
+ssh_cmd=(ssh "${ssh_opts[@]}")
+if [ $# -gt 0 ]; then
+	tpl=template_$1
+	shift
+	if [ -z "${!tpl-}" ]; then
+		avail=$(compgen -A variable template_ | sed 's/^template_//' | paste -sd ' ' -) || avail=none
+		die "unknown template '${tpl#template_}' (available: $avail); define $tpl in $config"
+	fi
+	printf -v remote -- "${!tpl}" "$@"
+	ssh_cmd+=(-t -- "$host" "$remote")
+else
+	ssh_cmd+=(-- "$host")
+fi
+
+# While ssh has the tty in raw mode ctrl-c goes to the remote side, so the
+# trap only fires between sessions — during connect attempts and the retry
+# sleep — where it should end the loop instead of ssh's 255 restarting it.
+interrupted=
+trap 'interrupted=1' INT
+
+delay=1
+attempt=1
+while :; do
+	started=$SECONDS
+	rc=0
+	"${ssh_cmd[@]}" || rc=$?
+	[ -z "$interrupted" ] || exit 130
+	[ "$rc" -eq 255 ] || exit "$rc"
+	lived=$((SECONDS - started))
+	if [ "$attempt" -eq 1 ] && [ "$lived" -lt "$gate_time" ]; then
+		exit "$rc"
+	fi
+	[ "$lived" -lt "$stable_after" ] || delay=1
+	echo "$prog: connection to $host lost; retrying in ${delay}s" >&2
+	sleep "$delay" || true
+	[ -z "$interrupted" ] || exit 130
+	delay=$((delay * 2 < max_delay ? delay * 2 : max_delay))
+	attempt=$((attempt + 1))
+done

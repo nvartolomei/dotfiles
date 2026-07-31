@@ -1,0 +1,11 @@
+# ressh config — sourced bash. Templates are printf formats applied to the
+# template args: %q quotes an arg for the remote shell, %s inserts it raw.
+
+template_tmux='tmux -CC new-session -A -s %q'
+
+# Tunables (defaults shown):
+# ssh_opts=(-o ServerAliveInterval=5 -o ServerAliveCountMax=3)
+# gate_time=5 max_delay=15 stable_after=30
+
+# Machine-local templates and overrides, same idea as ~/.gitconfig.local.
+[ ! -f "${BASH_SOURCE[0]}.local" ] || . "${BASH_SOURCE[0]}.local"
