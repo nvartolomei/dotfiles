@@ -3,14 +3,19 @@
 # ressh — ssh that reconnects when the connection drops, with remote-command
 # templates.
 #
-#   ressh <host> [template [args...]]
+#   ressh <host> [@template [args...] | command [args...]]
 #
 # Profiles are plain ssh_config Host entries; a symlink to this script named
 # after a host becomes a dedicated command for it:
 #
 #   ln -s ressh ~/bin/nowdev
-#   nowdev tmux main          # ssh nowdev 'tmux -CC new-session -A -s main'
+#   nowdev @tmux main         # ssh nowdev 'tmux -CC new-session -A -s main'
+#   nowdev htop               # literal remote command, like ssh nowdev htop
 #   nowdev                    # plain interactive ssh, still auto-reconnecting
+#
+# The @ marks a template; anything else is passed to ssh verbatim. Templates
+# get a tty (they are interactive session recipes); literal commands follow
+# ssh's own rules.
 #
 # Templates live in ~/.config/ressh/config (sourced bash). Each is a printf
 # format the template args are applied to; %q quotes an arg for the remote
@@ -43,7 +48,7 @@ config=${RESSH_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/ressh/config}
 
 self=${0##*/}
 if [ "$self" = "$prog" ]; then
-	[ $# -ge 1 ] || die "usage: $prog <host> [template [args...]]"
+	[ $# -ge 1 ] || die "usage: $prog <host> [@template [args...] | command [args...]]"
 	host=$1
 	shift
 else
@@ -51,18 +56,24 @@ else
 fi
 
 ssh_cmd=(ssh "${ssh_opts[@]}")
-if [ $# -gt 0 ]; then
-	tpl=template_$1
+case ${1-} in
+@*)
+	tpl=template_${1#@}
 	shift
 	if [ -z "${!tpl-}" ]; then
-		avail=$(compgen -A variable template_ | sed 's/^template_//' | paste -sd ' ' -) || avail=none
-		die "unknown template '${tpl#template_}' (available: $avail); define $tpl in $config"
+		avail=$(compgen -A variable template_ | sed 's/^template_/@/' | paste -sd ' ' -) || avail=none
+		die "unknown template '@${tpl#template_}' (available: $avail); define $tpl in $config"
 	fi
 	printf -v remote -- "${!tpl}" "$@"
 	ssh_cmd+=(-t -- "$host" "$remote")
-else
+	;;
+'')
 	ssh_cmd+=(-- "$host")
-fi
+	;;
+*)
+	ssh_cmd+=(-- "$host" "$@")
+	;;
+esac
 
 # While ssh has the tty in raw mode ctrl-c goes to the remote side, so the
 # trap only fires between sessions — during connect attempts and the retry

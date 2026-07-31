@@ -1,5 +1,6 @@
 # ressh config — sourced bash. Templates are printf formats applied to the
 # template args: %q quotes an arg for the remote shell, %s inserts it raw.
+# Invoke with a leading @, e.g.: nowdev @tmux main
 
 template_tmux='tmux -CC new-session -A -s %q'
 
