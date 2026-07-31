@@ -15,13 +15,23 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
-if [ -f /usr/local/share/bash-completion/bash_completion ]; then
-    source /usr/local/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion;
-fi;
+for file in /opt/homebrew/share/bash-completion/bash_completion \
+            /usr/local/share/bash-completion/bash_completion \
+            /etc/bash_completion; do
+    if [ -f "$file" ]; then
+        source "$file"
+        break
+    fi
+done
+unset file
 
-[[ -s /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
+for file in /opt/homebrew/etc/profile.d/autojump.sh /usr/local/etc/profile.d/autojump.sh; do
+    if [ -s "$file" ]; then
+        source "$file"
+        break
+    fi
+done
+unset file
 
 # Fuckof for XOFF message for CTRL-S (use this for vim write istead)
 bind -r '\C-s'
