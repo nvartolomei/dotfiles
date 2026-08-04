@@ -45,7 +45,7 @@ _git_sw() {
 _ressh_templates() {
     ( config=${RESSH_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/ressh/config}
       [ ! -f "$config" ] || . "$config"
-      compgen -A variable template_ | sed 's/^template_/@/' )
+      compgen -A variable template_ | sed 's/^template_//; s/_/-/g; s/^/@/' )
 }
 
 _ressh() {

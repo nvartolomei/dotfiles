@@ -23,6 +23,19 @@
 #
 #   template_tmux='tmux -CC new-session -A -s %q'
 #
+# Hyphens in a template name map to underscores in the variable:
+# @list-tmux -> template_list_tmux.
+#
+# If picker_<name> is defined and @<name> gets no args, the picker runs on
+# the host and fzf picks the template argument from its output:
+#
+#   picker_tmux='tmux list-sessions -F "#{session_name}"'
+#
+# Text after the first tab of a line is shown in fzf but stripped from the
+# pick. Enter takes the highlighted line; ctrl-n the query as typed — at the
+# @tmux picker, a new session. Picking happens before the reconnect loop, so
+# a drop reattaches without asking again.
+#
 # Reconnects only on ssh exit 255 (connection error); a clean exit or the
 # remote command's own status ends the loop. A first attempt that dies
 # within $gate_time seconds never connected (bad host, auth failure) and is
@@ -58,11 +71,31 @@ fi
 ssh_cmd=(ssh "${ssh_opts[@]}")
 case ${1-} in
 @*)
-	tpl=template_${1#@}
+	name=${1#@}
+	tpl=template_${name//-/_}
 	shift
 	if [ -z "${!tpl-}" ]; then
-		avail=$(compgen -A variable template_ | sed 's/^template_/@/' | paste -sd ' ' -) || avail=none
-		die "unknown template '@${tpl#template_}' (available: $avail); define $tpl in $config"
+		avail=$(compgen -A variable template_ | sed 's/^template_//; s/_/-/g; s/^/@/' | paste -sd ' ' -) || avail=none
+		die "unknown template '@$name' (available: $avail); define $tpl in $config"
+	fi
+	picker=picker_${name//-/_}
+	if [ $# -eq 0 ] && [ -n "${!picker-}" ]; then
+		command -v fzf >/dev/null 2>&1 || die "@$name picker requires fzf"
+		# A failed listing (no tmux server yet) still leaves ctrl-n
+		# useful; only failing to connect is fatal.
+		rc=0
+		choices=$(ssh "${ssh_opts[@]}" -- "$host" "${!picker}") || rc=$?
+		[ "$rc" -ne 255 ] || die "cannot reach $host for the @$name picker"
+		rc=0
+		picked=$(fzf --print-query --bind=ctrl-n:print-query \
+			--header='enter: pick, ctrl-n: use query as typed' <<<"$choices") || rc=$?
+		case $rc in
+		0) choice=${picked##*$'\n'} ;; # selection, or the query via ctrl-n
+		1) choice=${picked%%$'\n'*} ;; # no match: the query
+		*) exit "$rc" ;;
+		esac
+		[ -n "$choice" ] || die "nothing picked"
+		set -- "${choice%%$'\t'*}"
 	fi
 	printf -v remote -- "${!tpl}" "$@"
 	ssh_cmd+=(-t -- "$host" "$remote")

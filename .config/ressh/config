@@ -1,8 +1,14 @@
 # ressh config — sourced bash. Templates are printf formats applied to the
 # template args: %q quotes an arg for the remote shell, %s inserts it raw.
 # Invoke with a leading @, e.g.: nowdev @tmux main
+# Hyphens map to underscores: @list-tmux -> template_list_tmux.
+# A picker_<name> runs on the host when @<name> gets no args; fzf picks the
+# template argument from its output. Text after a tab is display only;
+# ctrl-n takes the query as typed (@tmux: a new session).
 
 template_tmux='tmux -CC new-session -A -s %q'
+picker_tmux=$'tmux list-sessions -F "#{session_name}\t#{session_windows} windows, created #{t:session_created}#{?session_attached, (attached),}"'
+template_list_tmux='tmux list-sessions'
 
 # Tunables (defaults shown):
 # ssh_opts=(-o ServerAliveInterval=5 -o ServerAliveCountMax=3)
