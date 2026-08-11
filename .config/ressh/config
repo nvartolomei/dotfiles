@@ -4,10 +4,13 @@
 # Hyphens map to underscores: @list-tmux -> template_list_tmux.
 # A picker_<name> runs on the host when @<name> gets no args; fzf picks the
 # template argument from its output. Text after a tab is display only;
-# ctrl-n takes the query as typed (@tmux: a new session).
+# ctrl-n takes the query as typed (@tmux: a new session). A kill_<name>
+# format is bound to ctrl-x: it runs on the host with the highlighted
+# entry, then the list reloads (@tmux: kill the session).
 
 template_tmux='tmux -CC new-session -A -s %q'
 picker_tmux=$'tmux list-sessions -F "#{session_name}\t#{session_windows} windows, created #{t:session_created}#{?session_attached, (attached),}"'
+kill_tmux='tmux kill-session -t %q'
 template_list_tmux='tmux list-sessions'
 
 # Tunables (defaults shown):

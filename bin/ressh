@@ -36,6 +36,12 @@
 # @tmux picker, a new session. Picking happens before the reconnect loop, so
 # a drop reattaches without asking again.
 #
+# If kill_<name> is defined as well, ctrl-x runs it on the host with the
+# highlighted entry (another printf format) and reloads the list — at the
+# @tmux picker, kill the session:
+#
+#   kill_tmux='tmux kill-session -t %q'
+#
 # Reconnects only on ssh exit 255 (connection error); a clean exit or the
 # remote command's own status ends the loop. A first attempt that dies
 # within $gate_time seconds never connected (bad host, auth failure) and is
@@ -86,9 +92,23 @@ case ${1-} in
 		rc=0
 		choices=$(ssh "${ssh_opts[@]}" -- "$host" "${!picker}") || rc=$?
 		[ "$rc" -ne 255 ] || die "cannot reach $host for the @$name picker"
+		fzf_opts=(--print-query --bind=ctrl-n:print-query)
+		header='enter: pick, ctrl-n: use query as typed'
+		kill=kill_${name//-/_}
+		if [ -n "${!kill-}" ]; then
+			# fzf runs binds through $SHELL -c with {1} already
+			# quoted; the formats travel via the environment to avoid
+			# a second quoting round, and backticks keep the bind free
+			# of nested parens, which fzf's action parser trips over.
+			printf -v run '%q ' ssh "${ssh_opts[@]}" -- "$host"
+			bind='ctrl-x:execute-silent('$run'"`printf -- "$_ressh_kill" {1}`")'
+			bind+='+reload('$run'"$_ressh_picker")'
+			fzf_opts+=(--delimiter=$'\t' --bind="$bind")
+			header+=', ctrl-x: kill'
+		fi
 		rc=0
-		picked=$(fzf --print-query --bind=ctrl-n:print-query \
-			--header='enter: pick, ctrl-n: use query as typed' <<<"$choices") || rc=$?
+		picked=$(_ressh_kill=${!kill-} _ressh_picker=${!picker} \
+			fzf "${fzf_opts[@]}" --header="$header" <<<"$choices") || rc=$?
 		case $rc in
 		0) choice=${picked##*$'\n'} ;; # selection, or the query via ctrl-n
 		1) choice=${picked%%$'\n'*} ;; # no match: the query
