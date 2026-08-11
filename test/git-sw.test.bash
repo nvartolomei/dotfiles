@@ -10,7 +10,9 @@
 set -u
 
 here=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-tmp=$(mktemp -d)
+# resolved (pwd -P) because git and tmux report physical paths, while
+# macOS mktemp hands out a path through the /var -> /private/var symlink
+tmp=$(cd "$(mktemp -d)" && pwd -P)
 trap 'rm -rf "$tmp"' EXIT
 
 export PATH="$tmp/fakebin:$here/bin:$PATH"
@@ -29,11 +31,13 @@ printf '%s\n%s\n' "${FAKE_KEY-}" "$line"
 EOF
 chmod +x "$tmp/fakebin/fzf"
 
+# stdin is delayed because script forwards it into the pty immediately,
+# racing ahead of the command's read from /dev/tty
 have_pty=1
 if script -qec true /dev/null >/dev/null 2>&1; then
-	run_pty() { script -qec "$1" /dev/null | tr -d '\r'; }
+	run_pty() { { sleep 0.5; cat; } | script -qec "$1" /dev/null | tr -d '\r'; }
 elif command -v script >/dev/null 2>&1; then
-	run_pty() { script -q /dev/null bash -c "$1" | tr -d '\r'; }
+	run_pty() { { sleep 0.5; cat; } | script -q /dev/null bash -c "$1" | tr -d '\r'; }
 else
 	have_pty=0
 fi
@@ -127,16 +131,16 @@ else
 	assert_eq "ctrl-b starts a new branch off the selection" \
 		newbie "$(git -C "$repo" branch --show-current)"
 
-	# ctrl-w on a free branch asks only for a path (empty accepts suggestion)
+	# ctrl-t on a free branch asks only for a path (empty accepts suggestion)
 	(cd "$repo" &&
-		printf '\n' | run_pty 'FAKE_PICK=wt-free FAKE_KEY=ctrl-w git-sw' >/dev/null)
-	assert_eq "ctrl-w checks a free branch out in a new worktree" \
+		printf '\n' | run_pty 'FAKE_PICK=wt-free FAKE_KEY=ctrl-t git-sw' >/dev/null)
+	assert_eq "ctrl-t checks a free branch out in a new worktree" \
 		wt-free "$(git -C "$tmp/demo-wt-free" branch --show-current 2>/dev/null)"
 
-	# ctrl-w on a busy branch asks for a new branch name first
+	# ctrl-t on a busy branch asks for a new branch name first
 	(cd "$repo" &&
-		printf 'offbusy\n\n' | run_pty 'FAKE_PICK=busy FAKE_KEY=ctrl-w git-sw' >/dev/null)
-	assert_eq "ctrl-w on a busy branch starts a new branch in the worktree" \
+		printf 'offbusy\n\n' | run_pty 'FAKE_PICK=busy FAKE_KEY=ctrl-t git-sw' >/dev/null)
+	assert_eq "ctrl-t on a busy branch starts a new branch in the worktree" \
 		offbusy "$(git -C "$tmp/demo-offbusy" branch --show-current 2>/dev/null)"
 
 	# a worktree deleted on disk but still registered offers to recreate;

@@ -9,7 +9,7 @@
 #           go to that worktree instead (offering to recreate it when its
 #           directory was deleted but is still registered)
 #   ctrl-b  start a new branch off the selected one
-#   ctrl-w  new worktree from the selected branch; if the branch is already
+#   ctrl-t  new worktree from the selected branch; if the branch is already
 #           checked out somewhere, the worktree starts a new branch off it
 #   ctrl-l  toggle the log preview
 #
@@ -111,8 +111,8 @@ branches=$(git branch --color=always --sort=-committerdate --format="$fmt")
 
 out=$(fzf --ansi --delimiter='\t' --with-nth='3..' --tiebreak=index \
 	--prompt='switch> ' \
-	--header='enter checkout/jump · ctrl-b new branch · ctrl-w new worktree · ctrl-l log' \
-	--expect=ctrl-b,ctrl-w \
+	--header='enter checkout/jump · ctrl-b new branch · ctrl-t new worktree · ctrl-l log' \
+	--expect=ctrl-b,ctrl-t \
 	--bind='ctrl-l:toggle-preview' \
 	--preview-window='right,55%,<100(up,50%)' \
 	--preview='git log --graph --color=always --abbrev-commit --pretty=format:"%C(yellow)%h%d%Creset %s %C(blue)(%cr @ %an)%Creset" -100 {1} --' \
@@ -128,7 +128,7 @@ case "$key" in
 ctrl-b)
 	new_branch_off "$branch"
 	;;
-ctrl-w)
+ctrl-t)
 	if [ -n "$wtpath" ] && [ ! -d "$wtpath" ]; then
 		recreate_worktree "$branch" "$wtpath"
 	else
