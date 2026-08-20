@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# git swr — switch to a remote branch.
+#
+#   git swr [<remote>] <branch>    (remote defaults to origin)
+#
+# Adds the branch to the remote's fetch refspec unless an existing
+# refspec (glob included) already covers it, fetches it, and switches
+# to a local branch tracking it. Useful in clones whose refspec is
+# filtered to a few branches, where plain `git fetch <remote> <branch>`
+# lands only in FETCH_HEAD.
+
+set -euo pipefail
+
+die() {
+	echo "$*" >&2
+	exit 1
+}
+
+remote=origin
+if [ $# -eq 2 ]; then
+	remote=$1
+	shift
+fi
+[ $# -eq 1 ] || die "usage: git swr [<remote>] <branch>"
+branch=$1
+
+covered() {
+	local spec
+	while IFS= read -r spec; do
+		spec=${spec%%:*}
+		# shellcheck disable=SC2254  # unquoted so a refspec glob like v2* acts as a pattern
+		case "refs/heads/$branch" in ${spec#+}) return 0 ;; esac
+	done < <(git config --get-all "remote.$remote.fetch")
+	return 1
+}
+
+covered || git remote set-branches --add "$remote" "$branch"
+git fetch "$remote" "$branch"
+if git rev-parse -q --verify "refs/heads/$branch" >/dev/null; then
+	git switch "$branch"
+else
+	git switch --track "$remote/$branch"
+fi
