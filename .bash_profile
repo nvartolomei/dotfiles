@@ -34,8 +34,7 @@ for file in /opt/homebrew/etc/profile.d/autojump.sh /usr/local/etc/profile.d/aut
 done
 unset file
 
-# Fuckof for XOFF message for CTRL-S (use this for vim write istead)
-bind -r '\C-s'
+# Ctrl-S otherwise sends XOFF and freezes terminal output until Ctrl-Q.
 stty -ixon
 
 # Sourced last so it can override anything above: completion files register
