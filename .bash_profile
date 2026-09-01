@@ -35,6 +35,7 @@ done
 unset file
 
 # Ctrl-S otherwise sends XOFF and freezes terminal output until Ctrl-Q.
+# See the IXON flag in https://man7.org/linux/man-pages/man3/termios.3.html
 stty -ixon
 
 # Sourced last so it can override anything above: completion files register
