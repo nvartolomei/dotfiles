@@ -1,7 +1,8 @@
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+# * ~/.extra can be used for other settings you don’t want to commit;
+#   it is sourced at the very end, see below.
+for file in ~/.{path,bash_prompt,exports,aliases,functions}; do
     [ -r "$file" ] && source "$file"
 done
 unset file
@@ -36,3 +37,11 @@ unset file
 # Fuckof for XOFF message for CTRL-S (use this for vim write istead)
 bind -r '\C-s'
 stty -ixon
+
+# Sourced last so it can override anything above: completion files register
+# their own `complete` bindings as they load, and a binding ~/.extra installs
+# beforehand is silently overwritten.
+for file in ~/.extra; do
+    [ -r "$file" ] && source "$file"
+done
+unset file
